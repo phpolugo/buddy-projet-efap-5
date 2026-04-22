@@ -1366,40 +1366,38 @@
         <div class="profile-header">
           <div class="profile-settings">⚙️</div>
           <div class="profile-avatar-wrap">
-            <div class="profile-avatar">🦋</div>
+            <img src="media/profile/charles jeune.jpg" style="width:80px;height:80px;border-radius:50%;object-fit:cover;object-position:center top;border:3px solid var(--bg);flex-shrink:0;box-shadow:0 2px 12px rgba(77,51,38,0.15)">
             <div class="profile-basic">
-              <div class="profile-name">Léa Martin</div>
-              <div class="profile-handle">@leamartinbdx</div>
+              <div class="profile-name">Charles Dupont</div>
+              <div class="profile-handle">@charlesdupont</div>
               <div class="profile-location">📍 Bordeaux</div>
             </div>
           </div>
 
           <div class="profile-stats">
             <div class="stat-item">
-              <div class="stat-num">12</div>
+              <div class="stat-num">18</div>
               <div class="stat-label">Sorties</div>
             </div>
             <div class="stat-item">
-              <div class="stat-num">3</div>
+              <div class="stat-num">5</div>
               <div class="stat-label">Organisées</div>
             </div>
             <div class="stat-item">
-              <div class="stat-num">4</div>
+              <div class="stat-num">3</div>
               <div class="stat-label">Commus</div>
             </div>
             <div class="stat-item">
-              <div class="stat-num">⭐ 4.9</div>
+              <div class="stat-num">⭐ 4.8</div>
               <div class="stat-label">Note</div>
             </div>
           </div>
 
           <div class="profile-tags">
-            <span class="tag tag-pink">🍸 Bar</span>
+            <span class="tag tag-yellow">🍺 Drinks</span>
             <span class="tag tag-orange">🎵 Concert</span>
             <span class="tag tag-green">🏃 Sport</span>
-            <span class="tag tag-violet">FEM</span>
-            <span class="tag tag-blue">LGBTQ+</span>
-            <span class="tag tag-yellow">🎨 Créatif</span>
+            <span class="tag tag-blue">Networking</span>
           </div>
         </div>
 
@@ -1409,18 +1407,75 @@
           <div class="profile-tab" onclick="switchProfileTab(this,'about')">À propos</div>
         </div>
 
-        <!-- Publications grid -->
+        <!-- Publications — event cards -->
         <div id="ptab-pubs">
-          <div class="pub-grid">
-            <div class="pub-thumb" style="background:linear-gradient(135deg,#FF5F4030,#23554C)">🎉</div>
-            <div class="pub-thumb" style="background:linear-gradient(135deg,#ABD4FD50,#23554C)">🎷</div>
-            <div class="pub-thumb" style="background:linear-gradient(135deg,#FF5F4030,#23554C)">🎸</div>
-            <div class="pub-thumb" style="background:linear-gradient(135deg,#AAC53830,#23554C)">🏃</div>
-            <div class="pub-thumb" style="background:linear-gradient(135deg,#FCF3A460,#23554C)">🎉</div>
-            <div class="pub-thumb" style="background:linear-gradient(135deg,#FD9EBC40,#23554C)">🎭</div>
+          <div style="padding:4px 0 8px 20px;font-size:12px;color:var(--gray)">5 sorties passées</div>
+
+          <!-- Card 1 -->
+          <div class="event-card">
+            <div class="card-img">
+              <img src="media/profile/publications-profile/charles-publications-profile.jpeg" style="width:100%;height:100%;object-fit:cover;object-position:center 30%">
+              <div class="card-badge" style="background:rgba(77,51,38,0.5)">✓ Participé</div>
+            </div>
+            <div class="card-body">
+              <div class="card-meta">
+                <div class="card-author">
+                  <div class="avatar-sm" style="background:linear-gradient(135deg,#FF5F40,#23554C)">🦋</div>
+                  <span class="author-name">Léa M.</span>
+                </div>
+                <span class="card-date">Mer 23 avr · 22h</span>
+              </div>
+              <div class="card-title">Soirée at Le Bootlegger 🍸</div>
+              <div class="card-tags">
+                <span class="tag tag-yellow">🍺 Bar</span>
+                <span class="tag tag-violet">FEM</span>
+                <span class="tag tag-blue">LGBTQ+</span>
+              </div>
+            </div>
           </div>
-          <div style="padding:16px 20px 0">
-            <div style="font-size:12px;color:var(--gray);text-align:center">3 à venir · 9 passées</div>
+
+          <!-- Card 2 -->
+          <div class="event-card">
+            <div class="card-img">
+              <img src="media/profile/publications-profile/charles-publications-profile.jpeg" style="width:100%;height:100%;object-fit:cover;object-position:center 60%">
+              <div class="card-badge" style="background:rgba(77,51,38,0.5)">✓ Participé</div>
+            </div>
+            <div class="card-body">
+              <div class="card-meta">
+                <div class="card-author">
+                  <div class="avatar-sm" style="background:linear-gradient(135deg,#FF5F40,#FCF3A4)">🎵</div>
+                  <span class="author-name">Nour A.</span>
+                </div>
+                <span class="card-date">Sam 12 avr · 20h</span>
+              </div>
+              <div class="card-title">Concert Jazz au Rocher de Palmer 🎷</div>
+              <div class="card-tags">
+                <span class="tag tag-orange">🎵 Concert</span>
+                <span class="tag tag-green">Jazz</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="event-card">
+            <div class="card-img">
+              <img src="media/profile/publications-profile/charles-publications-profile.jpeg" style="width:100%;height:100%;object-fit:cover;object-position:center 10%">
+              <div class="card-badge" style="background:rgba(77,51,38,0.5)">✓ Participé</div>
+            </div>
+            <div class="card-body">
+              <div class="card-meta">
+                <div class="card-author">
+                  <div class="avatar-sm" style="background:linear-gradient(135deg,#FCF3A4,#FF5F40)">🌟</div>
+                  <span class="author-name">Alex B.</span>
+                </div>
+                <span class="card-date">Jeu 10 avr · 19h</span>
+              </div>
+              <div class="card-title">After-work drinks Chartrons 🌅</div>
+              <div class="card-tags">
+                <span class="tag tag-yellow">🍺 Drinks</span>
+                <span class="tag tag-pink">Détente</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1429,17 +1484,17 @@
           <div style="display:flex;flex-direction:column;gap:10px">
             <div style="background:var(--card);border-radius:var(--radius-md);padding:14px;display:flex;align-items:center;gap:12px">
               <span style="font-size:28px">🏃</span>
-              <div><div style="font-weight:700;color:var(--white)">Running Club</div><div style="font-size:12px;color:var(--gray)">142 membres</div></div>
+              <div><div style="font-weight:700;color:var(--texte)">Running Club</div><div style="font-size:12px;color:var(--gray)">142 membres</div></div>
               <span style="margin-left:auto;font-size:11px;color:var(--green);font-weight:700">Admin</span>
             </div>
             <div style="background:var(--card);border-radius:var(--radius-md);padding:14px;display:flex;align-items:center;gap:12px">
               <span style="font-size:28px">🍹</span>
-              <div><div style="font-weight:700;color:var(--white)">Drinks & Vibes</div><div style="font-size:12px;color:var(--gray)">89 membres</div></div>
+              <div><div style="font-weight:700;color:var(--texte)">Drinks & Vibes</div><div style="font-size:12px;color:var(--gray)">89 membres</div></div>
               <span style="margin-left:auto;font-size:11px;color:var(--gray);font-weight:700">Membre</span>
             </div>
             <div style="background:var(--card);border-radius:var(--radius-md);padding:14px;display:flex;align-items:center;gap:12px">
               <span style="font-size:28px">🎭</span>
-              <div><div style="font-weight:700;color:var(--white)">Theodora Fan Club</div><div style="font-size:12px;color:var(--gray)">34 membres</div></div>
+              <div><div style="font-weight:700;color:var(--texte)">Theodora Fan Club</div><div style="font-size:12px;color:var(--gray)">34 membres</div></div>
               <span style="margin-left:auto;font-size:11px;color:var(--gray);font-weight:700">Membre</span>
             </div>
           </div>
@@ -1454,7 +1509,7 @@
           </div>
           <div style="background:var(--card);border-radius:var(--radius-md);padding:16px">
             <div style="font-size:12px;color:var(--gray);margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px">Membre depuis</div>
-            <div style="font-size:15px;color:var(--white);font-weight:700">Janvier 2026</div>
+            <div style="font-size:15px;color:var(--texte);font-weight:700">Janvier 2026</div>
           </div>
         </div>
 
