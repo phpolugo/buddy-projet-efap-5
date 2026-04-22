@@ -4,22 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Buddy — Mockups</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
+    /* ===================== FONTS ===================== */
+    @font-face { font-family: 'Gelica'; src: url('brand/fonts/fonnts.com-Gelica-Black.otf'); font-weight: 900; }
+    @font-face { font-family: 'Gelica'; src: url('brand/fonts/fonnts.com-Gelica-Bold.otf'); font-weight: 700; }
+    @font-face { font-family: 'Gelica'; src: url('brand/fonts/fonnts.com-Gelica-Semi-Bold.otf'); font-weight: 600; }
+    @font-face { font-family: 'Gelica'; src: url('brand/fonts/fonnts.com-Gelica-Medium.otf'); font-weight: 500; }
+    @font-face { font-family: 'Gelica'; src: url('brand/fonts/fonnts.com-Gelica-Regular.otf'); font-weight: 400; }
+
     /* ===================== CSS VARIABLES (DA-FRIENDLY) ===================== */
     :root {
-      --bg:         #0D0D0D;
-      --card:       #1A1A2E;
-      --card-2:     #16213E;
-      --pink:       #FF3CAC;
-      --violet:     #784BA0;
-      --blue:       #2B86C5;
-      --green:      #2ECC71;
-      --orange:     #FF6B35;
-      --yellow:     #FFD166;
+      --bg:         #FFFDD0;
+      --card:       #FFFFFF;
+      --card-2:     #F5EDD8;
+      --orange:     #FF5F40;
+      --vert:       #23554C;
+      --bleu:       #ABD4FD;
+      --jaune:      #FCF3A4;
+      --lime:       #AAC538;
+      --rose:       #FD9EBC;
+      --texte:      #4D3326;
       --white:      #FFFFFF;
-      --gray:       #8B8FA8;
-      --gray-light: #2A2A3E;
+      --gray:       rgba(77,51,38,0.45);
+      --gray-light: rgba(77,51,38,0.08);
+      /* legacy aliases pour compatibilité */
+      --pink:       #FF5F40;
+      --violet:     #23554C;
+      --blue:       #ABD4FD;
+      --green:      #AAC538;
+      --yellow:     #FCF3A4;
       --nav-height: 72px;
       --status-h:   44px;
       --phone-w:    390px;
@@ -32,7 +45,7 @@
     /* ===================== RESET & BASE ===================== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: 'Gelica', Helvetica, system-ui, sans-serif;
       background: #1C1C1C;
       min-height: 100vh;
       display: flex;
@@ -65,7 +78,7 @@
         0 0 0 10px #1A1A1A,
         0 0 0 12px #2A2A2A,
         0 40px 120px rgba(0,0,0,0.8),
-        0 0 60px rgba(255,60,172,0.08);
+        0 0 60px rgba(255,95,64,0.1);
       flex-shrink: 0;
     }
 
@@ -91,8 +104,8 @@
       padding-top: 10px;
       flex-shrink: 0;
     }
-    .status-bar .time { font-size: 15px; font-weight: 700; color: var(--white); }
-    .status-bar .icons { display: flex; gap: 6px; align-items: center; color: var(--white); font-size: 12px; }
+    .status-bar .time { font-size: 15px; font-weight: 700; color: var(--texte); }
+    .status-bar .icons { display: flex; gap: 6px; align-items: center; color: var(--texte); font-size: 12px; }
 
     /* ===================== SCREENS ===================== */
     .screen {
@@ -117,9 +130,9 @@
     /* ===================== BOTTOM NAV ===================== */
     .bottom-nav {
       height: var(--nav-height);
-      background: rgba(13,13,13,0.95);
+      background: var(--vert);
       backdrop-filter: blur(20px);
-      border-top: 1px solid rgba(255,255,255,0.06);
+      border-top: 1px solid rgba(255,255,255,0.1);
       display: flex;
       align-items: center;
       justify-content: space-around;
@@ -138,8 +151,8 @@
       flex: 1;
     }
     .nav-icon { font-size: 22px; transition: transform 0.2s; }
-    .nav-label { font-size: 10px; font-weight: 600; color: var(--gray); transition: color 0.2s; }
-    .nav-item.active .nav-label { color: var(--pink); }
+    .nav-label { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.5); transition: color 0.2s; }
+    .nav-item.active .nav-label { color: var(--jaune); }
     .nav-item.active .nav-icon { transform: scale(1.1); }
     .nav-dot {
       width: 4px; height: 4px;
@@ -157,7 +170,7 @@
     .screen-header h1 {
       font-size: 28px;
       font-weight: 900;
-      color: var(--white);
+      color: var(--texte);
       letter-spacing: -0.5px;
     }
     .screen-header .sub {
@@ -259,7 +272,7 @@
     }
     .author-name { font-size: 12px; color: var(--gray); font-weight: 500; }
     .card-date { font-size: 11px; color: var(--gray); }
-    .card-title { font-size: 17px; font-weight: 800; color: var(--white); margin-bottom: 10px; letter-spacing: -0.3px; }
+    .card-title { font-size: 17px; font-weight: 800; color: var(--texte); margin-bottom: 10px; letter-spacing: -0.3px; }
     .card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
     .tag {
       padding: 3px 10px;
@@ -267,12 +280,12 @@
       font-size: 11px;
       font-weight: 700;
     }
-    .tag-pink { background: rgba(255,60,172,0.2); color: var(--pink); }
-    .tag-blue { background: rgba(43,134,197,0.2); color: var(--blue); }
-    .tag-violet { background: rgba(120,75,160,0.2); color: #A67DD4; }
-    .tag-green { background: rgba(46,204,113,0.2); color: var(--green); }
-    .tag-orange { background: rgba(255,107,53,0.2); color: var(--orange); }
-    .tag-yellow { background: rgba(255,209,102,0.15); color: var(--yellow); }
+    .tag-pink { background: rgba(253,158,188,0.3); color: #C4385A; }
+    .tag-blue { background: rgba(171,212,253,0.5); color: #1A5A8A; }
+    .tag-violet { background: rgba(35,85,76,0.15); color: var(--vert); }
+    .tag-green { background: rgba(170,197,56,0.25); color: #5A7010; }
+    .tag-orange { background: rgba(255,95,64,0.15); color: #C03A1A; }
+    .tag-yellow { background: rgba(252,243,164,0.6); color: #7A6010; }
 
     /* Card footer */
     .card-footer {
@@ -281,7 +294,7 @@
       justify-content: space-between;
       margin-top: 12px;
       padding-top: 12px;
-      border-top: 1px solid rgba(255,255,255,0.05);
+      border-top: 1px solid rgba(77,51,38,0.1);
     }
     .places-info {
       display: flex;
@@ -364,7 +377,7 @@
       scrollbar-width: none;
     }
     .detail-body::-webkit-scrollbar { display: none; }
-    .detail-title { font-size: 24px; font-weight: 900; color: var(--white); margin-bottom: 6px; letter-spacing: -0.5px; }
+    .detail-title { font-size: 24px; font-weight: 900; color: var(--texte); margin-bottom: 6px; letter-spacing: -0.5px; }
     .detail-host {
       display: flex;
       align-items: center;
@@ -380,7 +393,7 @@
       font-size: 16px;
       flex-shrink: 0;
     }
-    .host-name { font-size: 14px; font-weight: 600; color: var(--white); }
+    .host-name { font-size: 14px; font-weight: 600; color: var(--texte); }
     .host-label { font-size: 11px; color: var(--gray); }
     .detail-info-row {
       display: flex;
@@ -394,10 +407,10 @@
       padding: 12px;
     }
     .info-label { font-size: 10px; color: var(--gray); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
-    .info-value { font-size: 15px; font-weight: 700; color: var(--white); }
+    .info-value { font-size: 15px; font-weight: 700; color: var(--texte); }
     .info-value.pink { color: var(--pink); }
     .detail-desc { font-size: 14px; color: var(--gray); line-height: 1.6; margin-bottom: 16px; }
-    .detail-section-title { font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+    .detail-section-title { font-size: 13px; font-weight: 700; color: var(--texte); margin-bottom: 10px; }
     .attendees-row {
       display: flex;
       gap: -8px;
@@ -433,7 +446,7 @@
     }
     .join-btn-lg {
       width: 100%;
-      background: linear-gradient(135deg, var(--pink), var(--violet));
+      background: linear-gradient(135deg, var(--orange), var(--vert));
       color: var(--white);
       border: none;
       padding: 16px;
@@ -508,8 +521,8 @@
     /* Add commu button */
     .add-btn {
       margin: 16px 20px 0;
-      background: rgba(255,60,172,0.1);
-      border: 1px dashed rgba(255,60,172,0.4);
+      background: rgba(255,95,64,0.08);
+      border: 1px dashed rgba(255,95,64,0.35);
       border-radius: var(--radius-lg);
       padding: 16px;
       display: flex;
@@ -564,11 +577,11 @@
       flex-shrink: 0;
     }
     .planning-day { font-size: 11px; font-weight: 600; color: var(--gray); text-transform: uppercase; }
-    .planning-num { font-size: 26px; font-weight: 900; color: var(--white); line-height: 1; }
+    .planning-num { font-size: 26px; font-weight: 900; color: var(--texte); line-height: 1; }
     .planning-month { font-size: 11px; font-weight: 600; color: var(--gray); }
-    .planning-divider { width: 1px; background: rgba(255,255,255,0.06); margin: 12px 0; align-self: stretch; }
+    .planning-divider { width: 1px; background: rgba(77,51,38,0.1); margin: 12px 0; align-self: stretch; }
     .planning-content { flex: 1; padding: 14px 14px 14px 12px; }
-    .planning-title { font-size: 15px; font-weight: 800; color: var(--white); margin-bottom: 4px; }
+    .planning-title { font-size: 15px; font-weight: 800; color: var(--texte); margin-bottom: 4px; }
     .planning-info { font-size: 12px; color: var(--gray); margin-bottom: 8px; }
     .planning-status {
       display: inline-flex;
@@ -579,8 +592,8 @@
       font-size: 11px;
       font-weight: 700;
     }
-    .status-confirmed { background: rgba(46,204,113,0.15); color: var(--green); }
-    .status-pending { background: rgba(255,209,102,0.15); color: var(--yellow); }
+    .status-confirmed { background: rgba(170,197,56,0.2); color: #5A7010; }
+    .status-pending { background: rgba(252,243,164,0.6); color: #7A6010; }
     .status-past { background: var(--gray-light); color: var(--gray); }
 
     /* Empty state */
@@ -621,7 +634,7 @@
     .profile-avatar {
       width: 80px; height: 80px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--pink), var(--violet));
+      background: linear-gradient(135deg, var(--orange), var(--vert));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -630,7 +643,7 @@
       flex-shrink: 0;
     }
     .profile-basic { }
-    .profile-name { font-size: 22px; font-weight: 900; color: var(--white); letter-spacing: -0.5px; }
+    .profile-name { font-size: 22px; font-weight: 900; color: var(--texte); letter-spacing: -0.5px; }
     .profile-handle { font-size: 13px; color: var(--gray); margin-bottom: 4px; }
     .profile-location { font-size: 13px; color: var(--gray); display: flex; align-items: center; gap: 4px; }
     .profile-stats {
@@ -639,13 +652,13 @@
       margin-bottom: 16px;
     }
     .stat-item { text-align: center; }
-    .stat-num { font-size: 20px; font-weight: 900; color: var(--white); }
+    .stat-num { font-size: 20px; font-weight: 900; color: var(--texte); }
     .stat-label { font-size: 11px; color: var(--gray); font-weight: 500; }
     .profile-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
 
     .profile-tabs {
       display: flex;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(77,51,38,0.1);
       margin-bottom: 16px;
       flex-shrink: 0;
     }
@@ -660,7 +673,7 @@
       border-bottom: 2px solid transparent;
       transition: all 0.2s;
     }
-    .profile-tab.active { color: var(--white); border-bottom-color: var(--pink); }
+    .profile-tab.active { color: var(--texte); border-bottom-color: var(--orange); }
 
     .pub-grid {
       display: grid;
@@ -697,7 +710,7 @@
       cursor: pointer;
       transition: background 0.15s;
     }
-    .chat-item:active { background: rgba(255,255,255,0.03); }
+    .chat-item:active { background: rgba(77,51,38,0.05); }
     .chat-avatar {
       width: 48px; height: 48px;
       border-radius: 16px;
@@ -709,7 +722,7 @@
     }
     .chat-avatar.circle { border-radius: 50%; }
     .chat-info { flex: 1; min-width: 0; }
-    .chat-name { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
+    .chat-name { font-size: 15px; font-weight: 700; color: var(--texte); margin-bottom: 2px; }
     .chat-preview { font-size: 13px; color: var(--gray); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .chat-right { text-align: right; flex-shrink: 0; }
     .chat-time { font-size: 11px; color: var(--gray); margin-bottom: 4px; }
@@ -727,7 +740,7 @@
     }
     .chat-divider {
       height: 1px;
-      background: rgba(255,255,255,0.05);
+      background: rgba(77,51,38,0.08);
       margin: 4px 20px;
     }
   </style>
@@ -768,13 +781,13 @@
         <!-- Card 1 -->
         <div class="event-card" onclick="openDetail('soiree')">
           <div class="card-img">
-            <div class="card-img-bg" style="background: linear-gradient(135deg, #1a0533, #FF3CAC40);">🎉</div>
+            <div class="card-img-bg" style="background: linear-gradient(135deg, #23554C, #FF5F4050);">🎉</div>
             <div class="card-badge"><span class="badge-dot"></span> 3 places</div>
           </div>
           <div class="card-body">
             <div class="card-meta">
               <div class="card-author">
-                <div class="avatar-sm" style="background:linear-gradient(135deg,#FF3CAC,#784BA0)">🦋</div>
+                <div class="avatar-sm" style="background:linear-gradient(135deg,#FF5F40,#23554C)">🦋</div>
                 <span class="author-name">Léa M.</span>
               </div>
               <span class="card-date">Ce soir · 22h</span>
@@ -798,13 +811,13 @@
         <!-- Card 2 -->
         <div class="event-card" onclick="openDetail('running')">
           <div class="card-img">
-            <div class="card-img-bg" style="background: linear-gradient(135deg, #0a2a1a, #2ECC7140);">🏃</div>
+            <div class="card-img-bg" style="background: linear-gradient(135deg, #23554C, #AAC53850);">🏃</div>
             <div class="card-badge"><span class="badge-dot"></span> 5 places</div>
           </div>
           <div class="card-body">
             <div class="card-meta">
               <div class="card-author">
-                <div class="avatar-sm" style="background:linear-gradient(135deg,#2ECC71,#2B86C5)">🌊</div>
+                <div class="avatar-sm" style="background:linear-gradient(135deg,#AAC538,#ABD4FD)">🌊</div>
                 <span class="author-name">Tom K.</span>
               </div>
               <span class="card-date">Demain · 6h30</span>
@@ -827,13 +840,13 @@
         <!-- Card 3 -->
         <div class="event-card" onclick="openDetail('concert')">
           <div class="card-img">
-            <div class="card-img-bg" style="background: linear-gradient(135deg, #1a0a00, #FF6B3540);">🎸</div>
-            <div class="card-badge" style="background:rgba(255,60,172,0.8)">COMPLET</div>
+            <div class="card-img-bg" style="background: linear-gradient(135deg, #23554C, #FD9EBC50);">🎸</div>
+            <div class="card-badge" style="background:rgba(255,95,64,0.85)">COMPLET</div>
           </div>
           <div class="card-body">
             <div class="card-meta">
               <div class="card-author">
-                <div class="avatar-sm" style="background:linear-gradient(135deg,#FF6B35,#FFD166)">🎵</div>
+                <div class="avatar-sm" style="background:linear-gradient(135deg,#FF5F40,#FCF3A4)">🎵</div>
                 <span class="author-name">Nour A.</span>
               </div>
               <span class="card-date">Sam 26 avr · 20h</span>
@@ -857,13 +870,13 @@
         <!-- Card 4 -->
         <div class="event-card" onclick="openDetail('drinks')">
           <div class="card-img">
-            <div class="card-img-bg" style="background: linear-gradient(135deg, #1a1500, #FFD16640);">🍻</div>
+            <div class="card-img-bg" style="background: linear-gradient(135deg, #23554C, #FCF3A460);">🍻</div>
             <div class="card-badge"><span class="badge-dot"></span> 8 places</div>
           </div>
           <div class="card-body">
             <div class="card-meta">
               <div class="card-author">
-                <div class="avatar-sm" style="background:linear-gradient(135deg,#FFD166,#FF6B35)">🌟</div>
+                <div class="avatar-sm" style="background:linear-gradient(135deg,#FCF3A4,#FF5F40)">🌟</div>
                 <span class="author-name">Alex B.</span>
               </div>
               <span class="card-date">Jeu 24 avr · 19h</span>
@@ -1198,7 +1211,7 @@
         <div class="chat-section-title">Communautés</div>
 
         <div class="chat-item">
-          <div class="chat-avatar" style="background:linear-gradient(135deg,#2ECC71,#2B86C5)">🏃</div>
+          <div class="chat-avatar" style="background:linear-gradient(135deg,#AAC538,#ABD4FD)">🏃</div>
           <div class="chat-info">
             <div class="chat-name">Running Club</div>
             <div class="chat-preview">Tom K. : RDV quai des Chartrons à 6h25 😎</div>
@@ -1211,7 +1224,7 @@
 
         <div class="chat-divider"></div>
         <div class="chat-item">
-          <div class="chat-avatar" style="background:linear-gradient(135deg,#FFD166,#FF6B35)">🍹</div>
+          <div class="chat-avatar" style="background:linear-gradient(135deg,#FCF3A4,#FF5F40)">🍹</div>
           <div class="chat-info">
             <div class="chat-name">Drinks & Vibes</div>
             <div class="chat-preview">Alex B. : Qui est dispo jeudi soir ?</div>
@@ -1224,7 +1237,7 @@
 
         <div class="chat-divider"></div>
         <div class="chat-item">
-          <div class="chat-avatar" style="background:linear-gradient(135deg,#FF3CAC,#784BA0)">🎭</div>
+          <div class="chat-avatar" style="background:linear-gradient(135deg,#FF5F40,#23554C)">🎭</div>
           <div class="chat-info">
             <div class="chat-name">Theodora Fan Club</div>
             <div class="chat-preview">Nouvel épisode dispo 🔥🔥🔥</div>
@@ -1239,7 +1252,7 @@
         <div class="chat-section-title">Messages directs</div>
 
         <div class="chat-item">
-          <div class="chat-avatar circle" style="background:linear-gradient(135deg,#FF3CAC,#784BA0)">🦋</div>
+          <div class="chat-avatar circle" style="background:linear-gradient(135deg,#FF5F40,#23554C)">🦋</div>
           <div class="chat-info">
             <div class="chat-name">Léa M.</div>
             <div class="chat-preview">T'es là ce soir du coup ? 🎉</div>
@@ -1252,7 +1265,7 @@
 
         <div class="chat-divider"></div>
         <div class="chat-item">
-          <div class="chat-avatar circle" style="background:linear-gradient(135deg,#2ECC71,#2B86C5)">🌊</div>
+          <div class="chat-avatar circle" style="background:linear-gradient(135deg,#AAC538,#ABD4FD)">🌊</div>
           <div class="chat-info">
             <div class="chat-name">Tom K.</div>
             <div class="chat-preview">Top ! À demain matin alors 💪</div>
@@ -1265,7 +1278,7 @@
 
         <div class="chat-divider"></div>
         <div class="chat-item">
-          <div class="chat-avatar circle" style="background:linear-gradient(135deg,#FFD166,#FF6B35)">🌟</div>
+          <div class="chat-avatar circle" style="background:linear-gradient(135deg,#FCF3A4,#FF5F40)">🌟</div>
           <div class="chat-info">
             <div class="chat-name">Alex B.</div>
             <div class="chat-preview">Check l'after-work que j'ai posté !</div>
@@ -1360,12 +1373,12 @@
         <!-- Publications grid -->
         <div id="ptab-pubs">
           <div class="pub-grid">
-            <div class="pub-thumb" style="background:linear-gradient(135deg,#FF3CAC30,#1a0533)">🎉</div>
-            <div class="pub-thumb" style="background:linear-gradient(135deg,#2B86C530,#0a1a33)">🎷</div>
-            <div class="pub-thumb" style="background:linear-gradient(135deg,#FF6B3530,#1a0a00)">🎸</div>
-            <div class="pub-thumb" style="background:linear-gradient(135deg,#2ECC7130,#0a2a1a)">🏃</div>
-            <div class="pub-thumb" style="background:linear-gradient(135deg,#FFD16630,#1a1500)">🎉</div>
-            <div class="pub-thumb" style="background:linear-gradient(135deg,#784BA030,#100520)">🎭</div>
+            <div class="pub-thumb" style="background:linear-gradient(135deg,#FF5F4030,#23554C)">🎉</div>
+            <div class="pub-thumb" style="background:linear-gradient(135deg,#ABD4FD50,#23554C)">🎷</div>
+            <div class="pub-thumb" style="background:linear-gradient(135deg,#FF5F4030,#23554C)">🎸</div>
+            <div class="pub-thumb" style="background:linear-gradient(135deg,#AAC53830,#23554C)">🏃</div>
+            <div class="pub-thumb" style="background:linear-gradient(135deg,#FCF3A460,#23554C)">🎉</div>
+            <div class="pub-thumb" style="background:linear-gradient(135deg,#FD9EBC40,#23554C)">🎭</div>
           </div>
           <div style="padding:16px 20px 0">
             <div style="font-size:12px;color:var(--gray);text-align:center">3 à venir · 9 passées</div>
@@ -1457,12 +1470,12 @@
         <div class="detail-title" id="detail-title">Soirée at Le Bootlegger 🍸</div>
 
         <div class="detail-host">
-          <div class="avatar-md" style="background:linear-gradient(135deg,#FF3CAC,#784BA0)">🦋</div>
+          <div class="avatar-md" style="background:linear-gradient(135deg,#FF5F40,#23554C)">🦋</div>
           <div>
             <div class="host-name" id="detail-host-name">Léa Martin</div>
             <div class="host-label">Organisatrice</div>
           </div>
-          <button style="margin-left:auto;background:var(--gray-light);color:var(--white);border:none;padding:7px 14px;border-radius:100px;font-size:12px;font-weight:700;font-family:inherit;cursor:pointer">Voir profil</button>
+          <button style="margin-left:auto;background:var(--gray-light);color:var(--texte);border:none;padding:7px 14px;border-radius:100px;font-size:12px;font-weight:700;font-family:inherit;cursor:pointer">Voir profil</button>
         </div>
 
         <div class="detail-info-row">
@@ -1499,11 +1512,11 @@
 
         <div class="detail-section-title">Participants (7)</div>
         <div class="attendees-row" style="display:flex;margin-bottom:20px">
-          <div class="attendee-avatar" style="background:linear-gradient(135deg,#FF3CAC,#784BA0)">🦋</div>
-          <div class="attendee-avatar" style="background:linear-gradient(135deg,#2ECC71,#2B86C5)">🌊</div>
-          <div class="attendee-avatar" style="background:linear-gradient(135deg,#FFD166,#FF6B35)">🌟</div>
-          <div class="attendee-avatar" style="background:linear-gradient(135deg,#784BA0,#2B86C5)">🦄</div>
-          <div class="attendee-avatar" style="background:linear-gradient(135deg,#FF6B35,#FFD166)">🔥</div>
+          <div class="attendee-avatar" style="background:linear-gradient(135deg,#FF5F40,#23554C)">🦋</div>
+          <div class="attendee-avatar" style="background:linear-gradient(135deg,#AAC538,#ABD4FD)">🌊</div>
+          <div class="attendee-avatar" style="background:linear-gradient(135deg,#FCF3A4,#FF5F40)">🌟</div>
+          <div class="attendee-avatar" style="background:linear-gradient(135deg,#23554C,#ABD4FD)">🦄</div>
+          <div class="attendee-avatar" style="background:linear-gradient(135deg,#FF5F40,#FCF3A4)">🔥</div>
           <div class="attendee-more">+2</div>
         </div>
 
