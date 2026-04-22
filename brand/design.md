@@ -10,7 +10,7 @@
 | Jaune clair | `#FCF3A4` | Highlight, tags            |
 | Vert lime   | `#AAC538` | Succès, badges actifs      |
 | Rose        | `#FD9EBC` | Tags, accents doux         |
-| Fond        | `#FFFDD0` | Fond principal             |
+| Fond        | `#FFF0DA` | Fond principal             |
 | Texte       | `#4D3326` | Texte principal            |
 
 ## Typographies
@@ -30,7 +30,7 @@
   --jaune:  #FCF3A4;
   --lime:   #AAC538;
   --rose:   #FD9EBC;
-  --fond:   #FFFDD0;
+  --fond:   #FFF0DA;
   --texte:  #4D3326;
 }
 ```
