@@ -15,10 +15,10 @@
 
 ## Typographies
 
-| Usage  | Police    |
-|--------|-----------|
-| Titres | Gelica    |
-| Corps  | Helvetica |
+| Usage  | Police        | Poids  |
+|--------|---------------|--------|
+| Titres | Gelica Medium | 500    |
+| Corps  | Inter         | 400–700 |
 
 ## CSS Variables
 

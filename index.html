@@ -6,11 +6,8 @@
   <title>Buddy — Mockups</title>
   <style>
     /* ===================== FONTS ===================== */
-    @font-face { font-family: 'Gelica'; src: url('brand/fonts/fonnts.com-Gelica-Black.otf'); font-weight: 900; }
-    @font-face { font-family: 'Gelica'; src: url('brand/fonts/fonnts.com-Gelica-Bold.otf'); font-weight: 700; }
-    @font-face { font-family: 'Gelica'; src: url('brand/fonts/fonnts.com-Gelica-Semi-Bold.otf'); font-weight: 600; }
-    @font-face { font-family: 'Gelica'; src: url('brand/fonts/fonnts.com-Gelica-Medium.otf'); font-weight: 500; }
-    @font-face { font-family: 'Gelica'; src: url('brand/fonts/fonnts.com-Gelica-Regular.otf'); font-weight: 400; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @font-face { font-family: 'Gelica'; src: url('brand/fonts/fonnts.com-Gelica-Medium.otf'); font-weight: 500; font-style: normal; }
 
     /* ===================== CSS VARIABLES (DA-FRIENDLY) ===================== */
     :root {
@@ -45,7 +42,7 @@
     /* ===================== RESET & BASE ===================== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Gelica', Helvetica, system-ui, sans-serif;
+      font-family: 'Inter', Helvetica, system-ui, sans-serif;
       background: #1C1C1C;
       min-height: 100vh;
       display: flex;
@@ -169,7 +166,8 @@
     }
     .screen-header h1 {
       font-size: 28px;
-      font-weight: 900;
+      font-weight: 500;
+      font-family: 'Gelica', serif;
       color: var(--texte);
       letter-spacing: -0.5px;
     }
@@ -220,6 +218,7 @@
       cursor: pointer;
       transition: transform 0.15s;
       flex-shrink: 0;
+      box-shadow: 0 2px 16px rgba(77,51,38,0.1);
     }
     .event-card:active { transform: scale(0.98); }
     .card-img {
@@ -272,7 +271,7 @@
     }
     .author-name { font-size: 12px; color: var(--gray); font-weight: 500; }
     .card-date { font-size: 11px; color: var(--gray); }
-    .card-title { font-size: 17px; font-weight: 800; color: var(--texte); margin-bottom: 10px; letter-spacing: -0.3px; }
+    .card-title { font-size: 17px; font-weight: 500; font-family: 'Gelica', serif; color: var(--texte); margin-bottom: 10px; letter-spacing: -0.3px; }
     .card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
     .tag {
       padding: 3px 10px;
@@ -377,7 +376,7 @@
       scrollbar-width: none;
     }
     .detail-body::-webkit-scrollbar { display: none; }
-    .detail-title { font-size: 24px; font-weight: 900; color: var(--texte); margin-bottom: 6px; letter-spacing: -0.5px; }
+    .detail-title { font-size: 24px; font-weight: 500; font-family: 'Gelica', serif; color: var(--texte); margin-bottom: 6px; letter-spacing: -0.5px; }
     .detail-host {
       display: flex;
       align-items: center;
@@ -405,6 +404,7 @@
       background: var(--card);
       border-radius: var(--radius-md);
       padding: 12px;
+      box-shadow: 0 2px 10px rgba(77,51,38,0.08);
     }
     .info-label { font-size: 10px; color: var(--gray); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
     .info-value { font-size: 15px; font-weight: 700; color: var(--texte); }
@@ -494,10 +494,11 @@
       transition: transform 0.15s;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 2px 16px rgba(77,51,38,0.1);
     }
     .commu-card:active { transform: scale(0.97); }
     .commu-emoji { font-size: 32px; margin-bottom: 10px; display: block; }
-    .commu-name { font-size: 14px; font-weight: 800; color: var(--white); margin-bottom: 4px; }
+    .commu-name { font-size: 14px; font-weight: 500; font-family: 'Gelica', serif; color: var(--texte); margin-bottom: 4px; }
     .commu-members { font-size: 11px; color: var(--gray); font-weight: 500; }
     .commu-accent {
       position: absolute;
@@ -565,6 +566,7 @@
       overflow: hidden;
       display: flex;
       flex-shrink: 0;
+      box-shadow: 0 2px 16px rgba(77,51,38,0.1);
     }
     .planning-date-side {
       width: 64px;
@@ -581,7 +583,7 @@
     .planning-month { font-size: 11px; font-weight: 600; color: var(--gray); }
     .planning-divider { width: 1px; background: rgba(77,51,38,0.1); margin: 12px 0; align-self: stretch; }
     .planning-content { flex: 1; padding: 14px 14px 14px 12px; }
-    .planning-title { font-size: 15px; font-weight: 800; color: var(--texte); margin-bottom: 4px; }
+    .planning-title { font-size: 15px; font-weight: 500; font-family: 'Gelica', serif; color: var(--texte); margin-bottom: 4px; }
     .planning-info { font-size: 12px; color: var(--gray); margin-bottom: 8px; }
     .planning-status {
       display: inline-flex;
@@ -643,7 +645,7 @@
       flex-shrink: 0;
     }
     .profile-basic { }
-    .profile-name { font-size: 22px; font-weight: 900; color: var(--texte); letter-spacing: -0.5px; }
+    .profile-name { font-size: 22px; font-weight: 500; font-family: 'Gelica', serif; color: var(--texte); letter-spacing: -0.5px; }
     .profile-handle { font-size: 13px; color: var(--gray); margin-bottom: 4px; }
     .profile-location { font-size: 13px; color: var(--gray); display: flex; align-items: center; gap: 4px; }
     .profile-stats {
