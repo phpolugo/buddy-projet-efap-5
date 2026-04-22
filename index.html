@@ -748,6 +748,35 @@
       background: rgba(77,51,38,0.08);
       margin: 4px 20px;
     }
+    /* ===================== SPLASH SCREEN ===================== */
+    #splash {
+      position: absolute;
+      inset: 0;
+      background: var(--vert);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50px;
+      transition: opacity 0.35s ease;
+    }
+    #splash.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .splash-logo {
+      font-family: 'Gelica', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: 52px;
+      color: #FFFAF4;
+      letter-spacing: -1px;
+      animation: splashPop 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes splashPop {
+      from { transform: scale(0.7); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
   </style>
 </head>
 <body>
@@ -755,6 +784,11 @@
   <div class="page-label">Buddy — Mockups interactifs v1.0</div>
 
   <div class="phone-shell" id="phone">
+
+    <!-- SPLASH SCREEN -->
+    <div id="splash">
+      <span class="splash-logo">buddy</span>
+    </div>
 
     <!-- STATUS BAR -->
     <div class="status-bar">
@@ -1590,6 +1624,13 @@
     };
 
     let currentScreen = 'meet';
+
+    // Splash screen
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('splash').classList.add('hide');
+      }, 500);
+    });
 
     function switchScreen(name) {
       // Close detail if open
