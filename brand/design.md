@@ -15,10 +15,11 @@
 
 ## Typographies
 
-| Usage  | Police        | Poids  |
-|--------|---------------|--------|
-| Titres | Gelica Medium | 500    |
-| Corps  | Inter         | 400–700 |
+| Niveau | Police            | Style         | Usage                          |
+|--------|-------------------|---------------|--------------------------------|
+| H1     | Gelica Bold       | Italic        | Titres écrans (Meet, Join...)  |
+| H2     | Inter Bold        | Normal        | Titres des cards/blocs         |
+| Corps  | Inter Regular     | Normal        | Tout le texte courant          |
 
 ## CSS Variables
 
