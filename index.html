@@ -2,7 +2,9 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>Buddy — Mockups</title>
   <style>
     /* ===================== FONTS ===================== */
@@ -13,7 +15,7 @@
 
     /* ===================== CSS VARIABLES (DA-FRIENDLY) ===================== */
     :root {
-      --bg:         #FFFAF4;
+      --bg:         #FFF8ED;
       --card:       #FFFFFF;
       --card-2:     #F5EDD8;
       --orange:     #FF5F40;
@@ -45,72 +47,36 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Inter', Helvetica, system-ui, sans-serif;
-      background: #1C1C1C;
-      min-height: 100vh;
+      background: var(--bg);
+      height: 100dvh;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 40px 20px 60px;
-      gap: 0;
+      justify-content: center;
     }
 
     /* ===================== PAGE TITLE ===================== */
-    .page-label {
-      color: rgba(255,255,255,0.3);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
+    .page-label { display: none; }
 
     /* ===================== PHONE SHELL ===================== */
     .phone-shell {
-      width: var(--phone-w);
-      height: var(--phone-h);
+      width: 100%;
+      max-width: 430px;
+      height: 100dvh;
       background: var(--bg);
-      border-radius: 50px;
+      border-radius: 0;
       overflow: hidden;
       position: relative;
-      box-shadow:
-        0 0 0 10px #1A1A1A,
-        0 0 0 12px #2A2A2A,
-        0 40px 120px rgba(0,0,0,0.8),
-        0 0 60px rgba(255,95,64,0.1);
-      flex-shrink: 0;
+      box-shadow: none;
     }
-
-    /* Notch */
-    .phone-shell::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 50%;
-      transform: translateX(-50%);
-      width: 120px; height: 34px;
-      background: #0D0D0D;
-      border-radius: 0 0 20px 20px;
-      z-index: 100;
-    }
+    .phone-shell::before { display: none; }
 
     /* ===================== STATUS BAR ===================== */
-    .status-bar {
-      height: var(--status-h);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 28px;
-      padding-top: 10px;
-      flex-shrink: 0;
-    }
-    .status-bar .time { font-size: 15px; font-weight: 700; color: var(--texte); }
-    .status-bar .icons { display: flex; gap: 6px; align-items: center; color: var(--texte); font-size: 12px; }
+    .status-bar { display: none; }
 
     /* ===================== SCREENS ===================== */
     .screen {
       display: none;
       flex-direction: column;
-      height: calc(var(--phone-h) - var(--status-h));
+      height: 100%;
       overflow: hidden;
     }
     .screen.active { display: flex; }
@@ -128,35 +94,37 @@
 
     /* ===================== BOTTOM NAV ===================== */
     .bottom-nav {
-      height: var(--nav-height);
-      background: var(--vert);
-      backdrop-filter: blur(20px);
-      border-top: 1px solid rgba(255,255,255,0.1);
+      height: calc(var(--nav-height) + env(safe-area-inset-bottom));
+      background: #FFF8ED;
+      border-top: 1px solid rgba(77,51,38,0.08);
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-around;
       flex-shrink: 0;
-      padding-bottom: 8px;
+      padding-top: 8px;
+      padding-bottom: env(safe-area-inset-bottom);
     }
     .nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      justify-content: center;
       cursor: pointer;
-      padding: 6px 16px;
-      border-radius: 12px;
-      transition: all 0.2s;
+      padding: 6px 14px;
       flex: 1;
+      transition: transform 0.15s;
     }
-    .nav-icon { font-size: 22px; transition: transform 0.2s; }
-    .nav-label { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.5); transition: color 0.2s; }
-    .nav-item.active .nav-label { color: var(--jaune); }
-    .nav-item.active .nav-icon { transform: scale(1.1); }
+    .nav-item:active { transform: scale(0.9); }
+    .nav-icon { display: flex; align-items: center; justify-content: center; }
+    .nav-icon img { width: 28px; height: 28px; object-fit: contain; }
+    .icon-plein { display: none; }
+    .nav-item.active .icon-outline { display: none; }
+    .nav-item.active .icon-plein { display: block; }
     .nav-dot {
       width: 4px; height: 4px;
-      background: var(--pink);
+      background: #FF5F40;
       border-radius: 50%;
+      margin-top: 4px;
       display: none;
     }
     .nav-item.active .nav-dot { display: block; }
@@ -164,6 +132,7 @@
     /* ===================== SCREEN HEADER ===================== */
     .screen-header {
       padding: 16px 20px 12px;
+      padding-top: max(16px, env(safe-area-inset-top));
       flex-shrink: 0;
     }
     .screen-header h1 {
@@ -204,7 +173,7 @@
       flex-shrink: 0;
     }
     .chip.active {
-      background: var(--pink);
+      background: #FF5F40;
       color: var(--white);
     }
     .chip:not(.active) {
@@ -224,6 +193,20 @@
       box-shadow: 0 2px 16px rgba(77,51,38,0.1);
     }
     .event-card:active { transform: scale(0.98); }
+    .event-card--sponsored {
+      border: 1.5px solid rgba(255,95,64,0.35);
+      box-shadow: 0 6px 28px rgba(255,95,64,0.18), 0 2px 8px rgba(77,51,38,0.08);
+    }
+    .sponsored-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 7px 14px 0;
+    }
+    .sponsored-label {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+      color: var(--orange); text-transform: uppercase;
+    }
+    .sponsored-label svg { width: 11px; height: 11px; }
     .card-img {
       height: 160px;
       position: relative;
@@ -235,6 +218,16 @@
       align-items: center;
       justify-content: center;
       font-size: 60px;
+    }
+    .card-img > img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .avatar-sm img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
     }
     .card-badge {
       position: absolute;
@@ -313,7 +306,7 @@
     }
     .places-fill { height: 100%; border-radius: 2px; }
     .join-btn-sm {
-      background: var(--pink);
+      background: #FF5F40;
       color: var(--white);
       border: none;
       padding: 8px 16px;
@@ -360,6 +353,7 @@
       position: absolute;
       top: 54px; left: 16px;
       width: 38px; height: 38px;
+      z-index: 20;
       background: rgba(0,0,0,0.5);
       backdrop-filter: blur(10px);
       border-radius: 50%;
@@ -492,15 +486,16 @@
     .commu-card {
       background: var(--card);
       border-radius: var(--radius-lg);
-      padding: 16px;
+      padding: 18px 16px 14px;
       cursor: pointer;
       transition: transform 0.15s;
       position: relative;
-      overflow: hidden;
+      border: 1.5px solid rgba(77,51,38,0.06);
       box-shadow: 0 2px 16px rgba(77,51,38,0.1);
     }
     .commu-card:active { transform: scale(0.97); }
     .commu-emoji { font-size: 32px; margin-bottom: 10px; display: block; }
+    .commu-mascotte { width: 64px; height: 64px; margin-bottom: 8px; display: block; object-fit: contain; }
     .commu-name { font-size: 14px; font-weight: 700; font-family: 'Inter', sans-serif; color: var(--texte); margin-bottom: 4px; }
     .commu-members { font-size: 11px; color: var(--gray); font-weight: 500; }
     .commu-accent {
@@ -570,7 +565,10 @@
       display: flex;
       flex-shrink: 0;
       box-shadow: 0 2px 16px rgba(77,51,38,0.1);
+      cursor: pointer;
+      transition: transform 0.15s;
     }
+    .planning-item:active { transform: scale(0.98); }
     .planning-date-side {
       width: 64px;
       display: flex;
@@ -748,52 +746,404 @@
       background: rgba(77,51,38,0.08);
       margin: 4px 20px;
     }
+
+    /* ===== SCREEN CONVERSATION ===== */
+    #screen-conversation {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: var(--bg);
+      z-index: 60;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex; flex-direction: column;
+    }
+    #screen-conversation.open { transform: translateX(0); }
+    .conv-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 52px 16px 12px;
+      background: var(--bg);
+      border-bottom: 1px solid rgba(77,51,38,0.08);
+      flex-shrink: 0;
+    }
+    .conv-back-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(77,51,38,0.08);
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .conv-avatar {
+      width: 40px; height: 40px; border-radius: 14px;
+      overflow: hidden; flex-shrink: 0;
+      background: rgba(77,51,38,0.08);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .conv-avatar.circle { border-radius: 50%; }
+    .conv-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .conv-name { font-size: 16px; font-weight: 700; color: var(--texte); }
+    .conv-status { font-size: 11px; color: var(--lime); font-weight: 600; }
+    .conv-messages {
+      flex: 1; overflow-y: auto; padding: 16px 14px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .conv-messages::-webkit-scrollbar { display: none; }
+    .msg-row { display: flex; align-items: flex-end; gap: 6px; }
+    .msg-row.mine { flex-direction: row-reverse; }
+    .msg-sender-avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      overflow: hidden; flex-shrink: 0;
+      background: rgba(77,51,38,0.1);
+    }
+    .msg-sender-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .msg-bubble {
+      max-width: 72%; padding: 9px 13px;
+      border-radius: 18px; font-size: 14px; line-height: 1.4;
+    }
+    .msg-bubble.theirs {
+      background: var(--white); color: var(--texte);
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 1px 6px rgba(77,51,38,0.08);
+    }
+    .msg-bubble.mine {
+      background: var(--orange); color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+    .msg-bubble.sticker {
+      background: transparent;
+      box-shadow: none; padding: 4px;
+    }
+    .msg-bubble.sticker img { width: 64px; height: 64px; object-fit: contain; }
+    .msg-time { font-size: 10px; color: var(--gray); margin: 0 4px 2px; align-self: flex-end; }
+    .msg-sender-name { font-size: 10px; font-weight: 700; color: var(--gray); margin-bottom: 2px; padding-left: 6px; }
+    .conv-day-label {
+      text-align: center; font-size: 11px; font-weight: 600;
+      color: var(--gray); margin: 8px 0;
+    }
+    .conv-input-area { flex-shrink: 0; border-top: 1px solid rgba(77,51,38,0.08); background: var(--bg); }
+    .sticker-picker {
+      display: none; padding: 12px 14px 4px;
+      grid-template-columns: repeat(5, 1fr); gap: 8px;
+    }
+    .sticker-picker.open { display: grid; }
+    .sticker-item {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: rgba(77,51,38,0.05);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .sticker-item:active { background: rgba(255,95,64,0.12); }
+    .sticker-item img { width: 38px; height: 38px; object-fit: contain; }
+    .conv-input-bar {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 12px 16px;
+    }
+    .conv-sticker-btn {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(77,51,38,0.07); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+    .conv-text-input {
+      flex: 1; border: 1.5px solid rgba(77,51,38,0.15);
+      border-radius: 20px; padding: 9px 14px;
+      font-size: 14px; font-family: inherit; background: var(--white);
+      color: var(--texte); outline: none;
+    }
+    .conv-send-btn {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--orange); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .conv-send-btn svg { width: 18px; height: 18px; }
+
+    /* ===== BUDDYCOUNT SLIDES ===== */
+    .bc-slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 40px 32px;
+    }
+    .bc-content { position: relative; z-index: 1; text-align: center; width: 100%; }
+    .bc-label {
+      font-size: 14px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: rgba(255,255,255,0.65);
+      margin-bottom: 16px;
+    }
+    .bc-number {
+      font-family: 'Gelica', serif; font-weight: 700; font-style: italic;
+      font-size: 100px; color: #fff; line-height: 1;
+      margin-bottom: 12px;
+    }
+    .bc-sublabel {
+      font-size: 22px; font-weight: 600; color: rgba(255,255,255,0.8);
+      line-height: 1.3; margin-bottom: 40px;
+    }
+    .bc-mascot {
+      width: 100px; height: 100px; object-fit: contain;
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.2));
+    }
+    .bc-tap {
+      position: absolute; bottom: 48px; left: 0; right: 0;
+      text-align: center; font-size: 12px; font-weight: 600;
+      color: rgba(255,255,255,0.4); letter-spacing: 0.5px;
+    }
+
+    /* ===== BUDDYCOUNT FAB ===== */
+    @keyframes bc-glow {
+      0%, 100% { box-shadow: 0 4px 24px rgba(255,95,64,0.45); }
+      50%       { box-shadow: 0 6px 32px rgba(255,95,64,0.7), 0 0 0 6px rgba(255,95,64,0.12); }
+    }
+    .bc-fab {
+      position: absolute;
+      bottom: calc(var(--nav-height) + 14px);
+      right: 20px;
+      z-index: 40;
+      background: var(--orange);
+      border: none; border-radius: 100px;
+      padding: 10px 16px 10px 12px;
+      cursor: pointer; font-family: inherit;
+      display: flex; align-items: center; gap: 7px;
+      animation: bc-glow 2.4s ease-in-out infinite;
+    }
+    .bc-fab-text {
+      font-size: 13px; font-weight: 700; color: #fff;
+      letter-spacing: 0.2px;
+    }
+    .bc-fab-badge {
+      background: #fff; color: var(--orange);
+      font-size: 11px; font-weight: 800;
+      border-radius: 100px; padding: 1px 7px;
+      line-height: 1.6;
+    }
+
+    /* ===== PROFILE SHEET ===== */
+    #profile-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.45); backdrop-filter: blur(4px);
+      z-index: 170; opacity: 0; pointer-events: none;
+      transition: opacity 0.3s; border-radius: 50px;
+    }
+    #profile-overlay.open { opacity: 1; pointer-events: all; }
+    #profile-sheet {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: var(--bg); border-radius: 28px 28px 0 0;
+      z-index: 175; padding: 0 0 32px;
+      transform: translateY(100%);
+      transition: transform 0.45s cubic-bezier(0.34,1.1,0.64,1);
+      max-height: 88%; overflow-y: auto;
+    }
+    #profile-sheet::-webkit-scrollbar { display: none; }
+    #profile-sheet.open { transform: translateY(0); }
+    .profile-sheet-photo {
+      width: 100%; height: 200px; object-fit: cover;
+      border-radius: 28px 28px 0 0;
+    }
+    .profile-sheet-body { padding: 20px 24px 0; }
+    .profile-sheet-name { font-family: 'Gelica', serif; font-weight: 700; font-style: italic; font-size: 26px; color: var(--texte); margin-bottom: 2px; }
+    .profile-sheet-meta { font-size: 13px; color: var(--gray); margin-bottom: 14px; }
+    .profile-sheet-bio { font-size: 14px; color: var(--texte); line-height: 1.5; margin-bottom: 16px; }
+    .profile-sheet-label { font-size: 11px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .profile-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+    .profile-commus { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .profile-commu-chip {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--card); border-radius: 12px;
+      padding: 6px 12px; font-size: 13px; font-weight: 600; color: var(--texte);
+      box-shadow: 0 1px 6px rgba(77,51,38,0.08);
+    }
+    .profile-commu-chip img { width: 22px; height: 22px; object-fit: contain; }
+    .profile-sheet-close {
+      width: calc(100% - 48px); margin: 0 24px;
+      background: none; border: 1.5px solid rgba(77,51,38,0.15);
+      border-radius: var(--radius-lg); padding: 12px;
+      font-size: 14px; font-weight: 600; color: var(--gray);
+      cursor: pointer; font-family: inherit;
+    }
     /* ===================== SPLASH SCREEN ===================== */
     #splash {
       position: absolute;
       inset: 0;
-      background: var(--vert);
+      background: #ABD4FD;
       z-index: 200;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 50px;
-      transition: opacity 0.35s ease;
+      transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.6s ease;
     }
     #splash.hide {
+      transform: translateY(-100%);
       opacity: 0;
       pointer-events: none;
     }
     .splash-logo {
-      font-family: 'Gelica', serif;
-      font-weight: 700;
-      font-style: italic;
-      font-size: 52px;
-      color: #FFFAF4;
-      letter-spacing: -1px;
+      width: 220px;
+      height: 220px;
+      object-fit: contain;
       animation: splashPop 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
     }
     @keyframes splashPop {
       from { transform: scale(0.7); opacity: 0; }
       to   { transform: scale(1);   opacity: 1; }
     }
+
+    /* ===================== JOIN BOTTOM SHEET ===================== */
+    #join-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(4px);
+      z-index: 150;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      border-radius: 50px;
+    }
+    #join-overlay.open { opacity: 1; pointer-events: all; }
+
+    #join-sheet {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: #FFF8ED;
+      border-radius: 28px 28px 0 0;
+      z-index: 160;
+      padding: 0 24px 40px;
+      transform: translateY(100%);
+      transition: transform 0.45s cubic-bezier(0.34, 1.1, 0.64, 1);
+    }
+    #join-sheet.open { transform: translateY(0); }
+
+    .sheet-handle {
+      width: 40px; height: 4px;
+      background: rgba(77,51,38,0.15);
+      border-radius: 100px;
+      margin: 14px auto 24px;
+    }
+    .sheet-avatar-wrap {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 14px;
+      border: 3px solid var(--orange);
+    }
+    .sheet-avatar-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .sheet-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--jaune);
+      color: #7A6010;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin: 0 auto 16px;
+    }
+    .sheet-dot-pulse {
+      width: 8px; height: 8px;
+      background: #C09010;
+      border-radius: 50%;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+    .sheet-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--texte);
+      text-align: center;
+      margin-bottom: 8px;
+      letter-spacing: -0.4px;
+    }
+    .sheet-msg {
+      font-size: 14px;
+      color: var(--gray);
+      text-align: center;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+    .sheet-close-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--orange);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+    }
+    /* COMMU SHEETS */
+    #commu-detail-overlay, #create-commu-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(4px);
+      z-index: 150; opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease; border-radius: 50px;
+    }
+    #commu-detail-overlay.open, #create-commu-overlay.open { opacity: 1; pointer-events: all; }
+
+    #commu-detail-sheet, #create-commu-sheet {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: #FFF8ED; border-radius: 28px 28px 0 0;
+      z-index: 160; padding: 0 24px 32px;
+      transform: translateY(100%);
+      transition: transform 0.45s cubic-bezier(0.34,1.1,0.64,1);
+      max-height: 85%;
+      overflow-y: auto;
+    }
+    #commu-detail-sheet::-webkit-scrollbar, #create-commu-sheet::-webkit-scrollbar { display:none; }
+    #commu-detail-sheet.open, #create-commu-sheet.open { transform: translateY(0); }
+
+    .create-step { display: none; }
+    .create-step.active { display: block; }
+    .create-step-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(77,51,38,0.15);
+      transition: background 0.2s;
+    }
+    .create-step-dot.active { background: #FF5F40; width: 20px; border-radius: 100px; }
+
+    .mascot-option {
+      aspect-ratio: 1; border-radius: var(--radius-md);
+      background: #fff; border: 2px solid transparent;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; padding: 6px;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .mascot-option img { width: 100%; height: 100%; object-fit: contain; }
+    .mascot-option.selected { border-color: #FF5F40; transform: scale(1.05); }
+
+    .invite-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px; background: #fff;
+      border-radius: var(--radius-md);
+      border: 1.5px solid rgba(77,51,38,0.06);
+    }
+    .invite-row img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+    .invite-row span { flex: 1; font-size: 14px; font-weight: 600; color: var(--texte); }
+    .invite-check {
+      width: 24px; height: 24px; border-radius: 50%;
+      border: 2px solid rgba(77,51,38,0.2);
+      cursor: pointer; transition: all 0.15s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .invite-check.checked { background: #FF5F40; border-color: #FF5F40; }
+    .invite-check.checked::after { content: '✓'; color: #fff; font-size: 12px; font-weight: 700; }
   </style>
 </head>
 <body>
-
-  <div class="page-label">Buddy — Mockups interactifs v1.0</div>
 
   <div class="phone-shell" id="phone">
 
     <!-- SPLASH SCREEN -->
     <div id="splash">
-      <span class="splash-logo">buddy</span>
-    </div>
-
-    <!-- STATUS BAR -->
-    <div class="status-bar">
-      <span class="time">9:41</span>
-      <span class="icons">📶 🔋</span>
+      <img class="splash-logo" src="brand/graphisme/logos/Logo secondaire.svg" alt="Buddy">
     </div>
 
     <!-- ==================== SCREEN: MEET ==================== -->
@@ -805,41 +1155,44 @@
 
       <!-- Filters -->
       <div class="filter-row">
-        <div class="chip active">🔥 Tout</div>
-        <div class="chip">🏃 Sport</div>
-        <div class="chip">🍹 Bar</div>
-        <div class="chip">🎵 Concert</div>
-        <div class="chip">🍕 Food</div>
-        <div class="chip">🎮 Gaming</div>
-        <div class="chip">🧘 Yoga</div>
+        <div class="chip active" onclick="filterEvents(this,'all')">🔥 Tout</div>
+        <div class="chip" onclick="filterEvents(this,'bar')">🍹 Bar</div>
+        <div class="chip" onclick="filterEvents(this,'sport')">🏃 Sport</div>
+        <div class="chip" onclick="filterEvents(this,'concert')">🎵 Concert</div>
+        <div class="chip" onclick="filterEvents(this,'fun')">🎭 Fun</div>
+        <div class="chip" onclick="filterEvents(this,'yoga')">🧘 Yoga</div>
       </div>
 
       <!-- Events Feed -->
       <div class="scroll-content">
 
-        <!-- Card 1 -->
-        <div class="event-card" onclick="openDetail('soiree')">
-          <div class="card-img">
-            <div class="card-img-bg" style="background: linear-gradient(135deg, #23554C, #FF5F4050);">🎉</div>
+        <!-- Card 1 — Soirée RockWood (sponsorisée) -->
+        <div class="event-card event-card--sponsored" data-category="bar" onclick="openDetail('soiree')">
+          <div class="sponsored-bar">
+            <span class="sponsored-label">
+              <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.5 1L1 7h4.5L5 11l5.5-6H6L6.5 1z" fill="#FF5F40"/></svg>
+              Sponsorisé
+            </span>
+          </div>
+          <div class="card-img" style="margin-top:6px">
+            <img src="media/meet/pub1-rockwood/cover.png" alt="Soirée RockWood">
             <div class="card-badge"><span class="badge-dot"></span> 3 places</div>
           </div>
           <div class="card-body">
             <div class="card-meta">
               <div class="card-author">
-                <div class="avatar-sm" style="background:linear-gradient(135deg,#FF5F40,#23554C)">🦋</div>
-                <span class="author-name">Léa M.</span>
+                <div class="avatar-sm"><img src="media/meet/pub1-rockwood/avatar.jpg" alt="Cloane"></div>
+                <span class="author-name">Cloane</span>
               </div>
-              <span class="card-date">Ce soir · 22h</span>
+              <span class="card-date">Ce soir · 23h</span>
             </div>
-            <div class="card-title">Soirée at Le Bootlegger 🍸</div>
+            <div class="card-title">Soirée au RockWood 🍹</div>
             <div class="card-tags">
-              <span class="tag tag-pink">🍸 Bar</span>
-              <span class="tag tag-violet">FEM</span>
-              <span class="tag tag-blue">LGBTQ+</span>
+              <span class="tag tag-pink">Bar</span>
             </div>
             <div class="card-footer">
               <div class="places-info">
-                <div class="places-bar"><div class="places-fill" style="width:70%;background:var(--pink)"></div></div>
+                <div class="places-bar"><div class="places-fill" style="width:70%;background:var(--orange)"></div></div>
                 <span>7/10 inscrits</span>
               </div>
               <button class="join-btn-sm">Rejoindre</button>
@@ -847,28 +1200,28 @@
           </div>
         </div>
 
-        <!-- Card 2 -->
-        <div class="event-card" onclick="openDetail('running')">
+        <!-- Card 2 — Running Garonne -->
+        <div class="event-card" data-category="sport" onclick="openDetail('running')">
           <div class="card-img">
-            <div class="card-img-bg" style="background: linear-gradient(135deg, #23554C, #AAC53850);">🏃</div>
+            <img src="media/meet/pub2-running/cover.jpg" alt="Running Garonne">
             <div class="card-badge"><span class="badge-dot"></span> 5 places</div>
           </div>
           <div class="card-body">
             <div class="card-meta">
               <div class="card-author">
-                <div class="avatar-sm" style="background:linear-gradient(135deg,#AAC538,#ABD4FD)">🌊</div>
-                <span class="author-name">Tom K.</span>
+                <div class="avatar-sm"><img src="media/meet/pub2-running/avatar.jpg" alt="Eva"></div>
+                <span class="author-name">Eva</span>
               </div>
               <span class="card-date">Demain · 6h30</span>
             </div>
-            <div class="card-title">Running Garonne — quai des Chartrons</div>
+            <div class="card-title">Running Garonne — quai des Chartrons 🏃</div>
             <div class="card-tags">
-              <span class="tag tag-green">🏃 Sport</span>
+              <span class="tag tag-green">Sport</span>
               <span class="tag tag-blue">Débutant OK</span>
             </div>
             <div class="card-footer">
               <div class="places-info">
-                <div class="places-bar"><div class="places-fill" style="width:30%;background:var(--green)"></div></div>
+                <div class="places-bar"><div class="places-fill" style="width:30%;background:var(--lime)"></div></div>
                 <span>3/10 inscrits</span>
               </div>
               <button class="join-btn-sm">Rejoindre</button>
@@ -876,59 +1229,87 @@
           </div>
         </div>
 
-        <!-- Card 3 -->
-        <div class="event-card" onclick="openDetail('concert')">
+        <!-- Card 3 — Concert Vald -->
+        <div class="event-card" data-category="concert" onclick="openDetail('concert')">
           <div class="card-img">
-            <div class="card-img-bg" style="background: linear-gradient(135deg, #23554C, #FD9EBC50);">🎸</div>
-            <div class="card-badge" style="background:rgba(255,95,64,0.85)">COMPLET</div>
+            <img src="media/meet/pub3-concert/cover.jpg" alt="Concert Vald">
+            <div class="card-badge"><span class="badge-dot"></span> 2 places</div>
           </div>
           <div class="card-body">
             <div class="card-meta">
               <div class="card-author">
-                <div class="avatar-sm" style="background:linear-gradient(135deg,#FF5F40,#FCF3A4)">🎵</div>
-                <span class="author-name">Nour A.</span>
+                <div class="avatar-sm"><img src="media/meet/pub3-concert/avatar.jpg" alt="Lou-Anne"></div>
+                <span class="author-name">Lou-Anne</span>
               </div>
               <span class="card-date">Sam 26 avr · 20h</span>
             </div>
-            <div class="card-title">Concert Jazz au Rocher de Palmer 🎷</div>
+            <div class="card-title">Concert Vald !! 🎤</div>
             <div class="card-tags">
-              <span class="tag tag-orange">🎵 Concert</span>
-              <span class="tag tag-yellow">Jazz</span>
-              <span class="tag tag-violet">FLINTAQ</span>
+              <span class="tag tag-orange">Concert</span>
+              <span class="tag tag-violet">Rap</span>
             </div>
             <div class="card-footer">
               <div class="places-info">
-                <div class="places-bar"><div class="places-fill" style="width:100%;background:var(--gray)"></div></div>
-                <span>12/12 inscrits</span>
+                <div class="places-bar"><div class="places-fill" style="width:80%;background:var(--orange)"></div></div>
+                <span>8/10 inscrits</span>
               </div>
-              <button class="join-btn-sm" style="background:var(--gray-light);color:var(--gray)">Complet</button>
+              <button class="join-btn-sm">Rejoindre</button>
             </div>
           </div>
         </div>
 
-        <!-- Card 4 -->
-        <div class="event-card" onclick="openDetail('drinks')">
+        <!-- Card 4 — Show Drag -->
+        <div class="event-card" data-category="fun" onclick="openDetail('drinks')">
           <div class="card-img">
-            <div class="card-img-bg" style="background: linear-gradient(135deg, #23554C, #FCF3A460);">🍻</div>
+            <img src="media/meet/pub4-afterwork/cover.jpg" alt="Afterwork Darwin">
             <div class="card-badge"><span class="badge-dot"></span> 8 places</div>
           </div>
           <div class="card-body">
             <div class="card-meta">
               <div class="card-author">
-                <div class="avatar-sm" style="background:linear-gradient(135deg,#FCF3A4,#FF5F40)">🌟</div>
-                <span class="author-name">Alex B.</span>
+                <div class="avatar-sm"><img src="media/meet/pub4-afterwork/avatar.jpg" alt="Hugo"></div>
+                <span class="author-name">Hugo</span>
               </div>
               <span class="card-date">Jeu 24 avr · 19h</span>
             </div>
-            <div class="card-title">After-work drinks Chartrons 🌅</div>
+            <div class="card-title">Show Drag au Bien Public 🎭</div>
             <div class="card-tags">
-              <span class="tag tag-yellow">🍺 Drinks</span>
-              <span class="tag tag-pink">Détente</span>
+              <span class="tag tag-pink">Fun</span>
+              <span class="tag tag-violet">LGBTQ+</span>
             </div>
             <div class="card-footer">
               <div class="places-info">
-                <div class="places-bar"><div class="places-fill" style="width:20%;background:var(--yellow)"></div></div>
+                <div class="places-bar"><div class="places-fill" style="width:20%;background:var(--jaune)"></div></div>
                 <span>2/10 inscrits</span>
+              </div>
+              <button class="join-btn-sm">Rejoindre</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 — Yoga sur les quais -->
+        <div class="event-card" data-category="yoga" onclick="openDetail('yoga')">
+          <div class="card-img">
+            <img src="media/meet/pub5-yoga/cover.webp" alt="Yoga sur les quais">
+            <div class="card-badge"><span class="badge-dot"></span> 4 places</div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta">
+              <div class="card-author">
+                <div class="avatar-sm"><img src="media/meet/pub5-yoga/avatar.png" alt="Paul-Hugo"></div>
+                <span class="author-name">Paul-Hugo</span>
+              </div>
+              <span class="card-date">Dim 27 avr · 10h</span>
+            </div>
+            <div class="card-title">Yoga sur les quais 🧘</div>
+            <div class="card-tags">
+              <span class="tag tag-green">Yoga</span>
+              <span class="tag tag-blue">Bien-être</span>
+            </div>
+            <div class="card-footer">
+              <div class="places-info">
+                <div class="places-bar"><div class="places-fill" style="width:50%;background:var(--lime)"></div></div>
+                <span>4/8 inscrits</span>
               </div>
               <button class="join-btn-sm">Rejoindre</button>
             </div>
@@ -940,28 +1321,38 @@
       <!-- Bottom Nav -->
       <div class="bottom-nav">
         <div class="nav-item active" onclick="switchScreen('meet')">
-          <div class="nav-icon">⭐</div>
-          <div class="nav-label">Meet</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/meet-outline.png" alt="Meet">
+            <img class="icon-plein" src="media/icons/meet-plein.png" alt="Meet">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item" onclick="switchScreen('join')">
-          <div class="nav-icon">👥</div>
-          <div class="nav-label">Join</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/commus-outline.png" alt="Commus">
+            <img class="icon-plein" src="media/icons/commus-plein.png" alt="Commus">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item" onclick="switchScreen('planning')">
-          <div class="nav-icon">🎫</div>
-          <div class="nav-label">Planning</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/planning-outline.png" alt="Planning">
+            <img class="icon-plein" src="media/icons/planning-plein.png" alt="Planning">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item" onclick="switchScreen('chat')">
-          <div class="nav-icon">💬</div>
-          <div class="nav-label">Chat</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/chat-outline.png" alt="Chat">
+            <img class="icon-plein" src="media/icons/chat-plein.png" alt="Chat">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item" onclick="switchScreen('profile')">
-          <div class="nav-icon">👤</div>
-          <div class="nav-label">Profil</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/profil-outline.png" alt="Profil">
+            <img class="icon-plein" src="media/icons/profil-plein.png" alt="Profil">
+          </div>
           <div class="nav-dot"></div>
         </div>
       </div>
@@ -976,74 +1367,64 @@
 
       <div class="search-bar">
         <span class="search-icon">🔍</span>
-        <input class="search-input" type="text" placeholder="Cherche une communauté...">
+        <input class="search-input" id="commu-search" type="text" placeholder="Cherche une communauté..." oninput="searchCommu(this.value)">
       </div>
 
       <div class="scroll-content">
         <div class="commu-grid">
           <!-- 1 -->
-          <div class="commu-card">
-            <div class="commu-accent" style="background:var(--green)"></div>
+          <div class="commu-card" onclick="openCommu('running')">
             <div class="commu-joined">✓</div>
-            <span class="commu-emoji">🏃</span>
+            <img class="commu-mascotte" src="brand/graphisme/mascottes/mascotte-run.svg" alt="Running Club">
             <div class="commu-name">Running Club</div>
             <div class="commu-members">142 membres</div>
           </div>
           <!-- 2 -->
-          <div class="commu-card">
-            <div class="commu-accent" style="background:var(--yellow)"></div>
+          <div class="commu-card" onclick="openCommu('drinks')">
             <div class="commu-joined">✓</div>
-            <span class="commu-emoji">🍹</span>
+            <img class="commu-mascotte" src="brand/graphisme/mascottes/mascotte-cocktail.svg" alt="Drinks & Vibes">
             <div class="commu-name">Drinks & Vibes</div>
             <div class="commu-members">89 membres</div>
           </div>
           <!-- 3 -->
-          <div class="commu-card">
-            <div class="commu-accent" style="background:var(--pink)"></div>
-            <span class="commu-emoji">🎭</span>
+          <div class="commu-card" onclick="openCommu('theodora')">
+            <img class="commu-mascotte" src="brand/graphisme/mascottes/mascotte-danse.svg" alt="Theodora Fan Club">
             <div class="commu-name">Theodora Fan Club</div>
             <div class="commu-members">34 membres</div>
           </div>
           <!-- 4 -->
-          <div class="commu-card">
-            <div class="commu-accent" style="background:var(--blue)"></div>
-            <span class="commu-emoji">🎬</span>
+          <div class="commu-card" onclick="openCommu('cine')">
+            <img class="commu-mascotte" src="brand/graphisme/mascottes/mascotte-impressionne.svg" alt="Ciné Club">
             <div class="commu-name">Ciné Club</div>
             <div class="commu-members">211 membres</div>
           </div>
           <!-- 5 -->
-          <div class="commu-card">
-            <div class="commu-accent" style="background:var(--orange)"></div>
-            <span class="commu-emoji">🧘</span>
+          <div class="commu-card" onclick="openCommu('yoga')">
+            <img class="commu-mascotte" src="brand/graphisme/mascottes/mascotte-yoga.svg" alt="Yoga & Mindset">
             <div class="commu-name">Yoga & Mindset</div>
             <div class="commu-members">67 membres</div>
           </div>
           <!-- 6 -->
-          <div class="commu-card">
-            <div class="commu-accent" style="background:var(--violet)"></div>
-            <span class="commu-emoji">🎮</span>
+          <div class="commu-card" onclick="openCommu('gamers')">
+            <img class="commu-mascotte" src="brand/graphisme/mascottes/mascotte-malicieux.svg" alt="Gamers Bordeaux">
             <div class="commu-name">Gamers Bordeaux</div>
             <div class="commu-members">156 membres</div>
           </div>
           <!-- 7 -->
-          <div class="commu-card">
-            <div class="commu-accent" style="background:var(--yellow)"></div>
-            <span class="commu-emoji">🍕</span>
+          <div class="commu-card" onclick="openCommu('cuisine')">
+            <img class="commu-mascotte" src="brand/graphisme/mascottes/mascotte-pizza.svg" alt="Cuisine du Monde">
             <div class="commu-name">Cuisine du Monde</div>
             <div class="commu-members">78 membres</div>
           </div>
           <!-- 8 -->
-          <div class="commu-card">
-            <div class="commu-accent" style="background:var(--pink)"></div>
-            <span class="commu-emoji">🎨</span>
+          <div class="commu-card" onclick="openCommu('creatifs')">
+            <img class="commu-mascotte" src="brand/graphisme/mascottes/mascotte-peinture.svg" alt="Créatifs BDX">
             <div class="commu-name">Créatifs BDX</div>
             <div class="commu-members">43 membres</div>
           </div>
         </div>
 
-        <button class="add-btn" style="width:calc(100% - 40px); margin-left:20px; margin-right:20px;">
-          ＋ Créer une communauté
-        </button>
+        <button class="add-btn" style="width:calc(100% - 40px); margin-left:20px; margin-right:20px;" onclick="openCreateCommu()">＋ Créer une communauté</button>
 
         <div style="height:20px"></div>
       </div>
@@ -1051,28 +1432,38 @@
       <!-- Bottom Nav -->
       <div class="bottom-nav">
         <div class="nav-item" onclick="switchScreen('meet')">
-          <div class="nav-icon">⭐</div>
-          <div class="nav-label">Meet</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/meet-outline.png" alt="Meet">
+            <img class="icon-plein" src="media/icons/meet-plein.png" alt="Meet">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item active" onclick="switchScreen('join')">
-          <div class="nav-icon">👥</div>
-          <div class="nav-label">Join</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/commus-outline.png" alt="Commus">
+            <img class="icon-plein" src="media/icons/commus-plein.png" alt="Commus">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item" onclick="switchScreen('planning')">
-          <div class="nav-icon">🎫</div>
-          <div class="nav-label">Planning</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/planning-outline.png" alt="Planning">
+            <img class="icon-plein" src="media/icons/planning-plein.png" alt="Planning">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item" onclick="switchScreen('chat')">
-          <div class="nav-icon">💬</div>
-          <div class="nav-label">Chat</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/chat-outline.png" alt="Chat">
+            <img class="icon-plein" src="media/icons/chat-plein.png" alt="Chat">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item" onclick="switchScreen('profile')">
-          <div class="nav-icon">👤</div>
-          <div class="nav-label">Profil</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/profil-outline.png" alt="Profil">
+            <img class="icon-plein" src="media/icons/profil-plein.png" alt="Profil">
+          </div>
           <div class="nav-dot"></div>
         </div>
       </div>
@@ -1095,47 +1486,32 @@
 
         <!-- Tab: À venir -->
         <div id="tab-avenir">
-          <div class="planning-item">
-            <div class="planning-date-side" style="background:rgba(255,60,172,0.08)">
+          <div class="planning-item" onclick="openDetail('soiree','confirmed')">
+            <div class="planning-date-side" style="background:rgba(255,95,64,0.08)">
               <span class="planning-day">MER</span>
-              <span class="planning-num" style="color:var(--pink)">23</span>
+              <span class="planning-num" style="color:var(--orange)">23</span>
               <span class="planning-month">AVR</span>
             </div>
             <div class="planning-divider"></div>
             <div class="planning-content">
-              <div class="planning-title">Soirée at Le Bootlegger 🍸</div>
-              <div class="planning-info">📍 Le Bootlegger, Bordeaux · 22h00</div>
-              <div class="planning-info">👥 7 participants · Léa M. organise</div>
+              <div class="planning-title">Soirée au RockWood 🍹</div>
+              <div class="planning-info">📍 RockWood Bar, Bordeaux · 23h</div>
+              <div class="planning-info">👥 7/10 inscrits · Cloane organise</div>
               <span class="planning-status status-confirmed">✓ Confirmé</span>
             </div>
           </div>
 
-          <div class="planning-item">
-            <div class="planning-date-side" style="background:rgba(46,204,113,0.08)">
+          <div class="planning-item" onclick="openDetail('running','confirmed')">
+            <div class="planning-date-side" style="background:rgba(170,197,56,0.1)">
               <span class="planning-day">JEU</span>
-              <span class="planning-num" style="color:var(--green)">24</span>
+              <span class="planning-num" style="color:var(--lime)">24</span>
               <span class="planning-month">AVR</span>
             </div>
             <div class="planning-divider"></div>
             <div class="planning-content">
-              <div class="planning-title">After-work Chartrons 🌅</div>
-              <div class="planning-info">📍 Bar des Chartrons · 19h00</div>
-              <div class="planning-info">👥 2 participants · Alex B. organise</div>
-              <span class="planning-status status-confirmed">✓ Confirmé</span>
-            </div>
-          </div>
-
-          <div class="planning-item">
-            <div class="planning-date-side" style="background:rgba(43,134,197,0.08)">
-              <span class="planning-day">MAR</span>
-              <span class="planning-num" style="color:var(--blue)">29</span>
-              <span class="planning-month">AVR</span>
-            </div>
-            <div class="planning-divider"></div>
-            <div class="planning-content">
-              <div class="planning-title">Running Garonne 🏃</div>
+              <div class="planning-title">Running Garonne — quai des Chartrons 🏃</div>
               <div class="planning-info">📍 Quai des Chartrons · 6h30</div>
-              <div class="planning-info">👥 3 participants · Tom K. organise</div>
+              <div class="planning-info">👥 5/10 inscrits · Eva organise</div>
               <span class="planning-status status-confirmed">✓ Confirmé</span>
             </div>
           </div>
@@ -1143,66 +1519,51 @@
 
         <!-- Tab: En attente (hidden) -->
         <div id="tab-attente" style="display:none">
-          <div class="planning-item">
-            <div class="planning-date-side" style="background:rgba(255,209,102,0.08)">
+          <div class="planning-item" onclick="openDetail('drinks','pending')">
+            <div class="planning-date-side" style="background:rgba(253,158,188,0.12)">
               <span class="planning-day">VEN</span>
-              <span class="planning-num" style="color:var(--yellow)">25</span>
+              <span class="planning-num" style="color:var(--rose)">25</span>
               <span class="planning-month">AVR</span>
             </div>
             <div class="planning-divider"></div>
             <div class="planning-content">
-              <div class="planning-title">Tournoi FIFA Miroir 🎮</div>
-              <div class="planning-info">📍 Miroir, Bordeaux · 20h00</div>
-              <div class="planning-info">👥 4 participants · Kévin T. organise</div>
-              <span class="planning-status status-pending">⏳ En attente de l'hôte</span>
+              <div class="planning-title">Show Drag au Bien Public 🎭</div>
+              <div class="planning-info">📍 Le Bien Public, Bordeaux · 21h</div>
+              <div class="planning-info">👥 4/10 inscrits · Hugo organise</div>
+              <span class="planning-status status-pending">⏳ En cours de validation</span>
             </div>
           </div>
 
-          <div class="planning-item">
-            <div class="planning-date-side" style="background:rgba(255,209,102,0.08)">
-              <span class="planning-day">DIM</span>
-              <span class="planning-num" style="color:var(--yellow)">27</span>
+          <div class="planning-item" onclick="openDetail('concert','pending')">
+            <div class="planning-date-side" style="background:rgba(171,212,253,0.18)">
+              <span class="planning-day">SAM</span>
+              <span class="planning-num" style="color:var(--bleu)">26</span>
               <span class="planning-month">AVR</span>
             </div>
             <div class="planning-divider"></div>
             <div class="planning-content">
-              <div class="planning-title">Pique-nique Darwin 🌿</div>
-              <div class="planning-info">📍 Darwin, Bordeaux · 13h00</div>
-              <div class="planning-info">👥 1/8 · Mia L. organise</div>
-              <span class="planning-status status-pending">⏳ En attente de participants</span>
+              <div class="planning-title">Concert Vald !! 🎤</div>
+              <div class="planning-info">📍 Salle de concert, Bordeaux · 20h</div>
+              <div class="planning-info">👥 8/10 inscrits · Lou-Anne organise</div>
+              <span class="planning-status status-pending">⏳ En cours de validation</span>
             </div>
           </div>
         </div>
 
         <!-- Tab: Passés (hidden) -->
         <div id="tab-passes" style="display:none">
-          <div class="planning-item">
+          <div class="planning-item" onclick="openDetail('yoga','past')">
             <div class="planning-date-side" style="background:rgba(139,143,168,0.08)">
-              <span class="planning-day">SAM</span>
-              <span class="planning-num">12</span>
+              <span class="planning-day">DIM</span>
+              <span class="planning-num">20</span>
               <span class="planning-month">AVR</span>
             </div>
             <div class="planning-divider"></div>
             <div class="planning-content">
-              <div class="planning-title">Open Air Darwin 🎶</div>
-              <div class="planning-info">📍 Darwin, Bordeaux · 16h00</div>
+              <div class="planning-title">Yoga sur les quais 🧘</div>
+              <div class="planning-info">📍 Quais de Bordeaux · 10h</div>
               <div class="planning-info">👥 23 participants</div>
               <span class="planning-status status-past">Terminé · ⭐⭐⭐⭐⭐</span>
-            </div>
-          </div>
-
-          <div class="planning-item">
-            <div class="planning-date-side" style="background:rgba(139,143,168,0.08)">
-              <span class="planning-day">MER</span>
-              <span class="planning-num">9</span>
-              <span class="planning-month">AVR</span>
-            </div>
-            <div class="planning-divider"></div>
-            <div class="planning-content">
-              <div class="planning-title">Soirée Warehouse 🏭</div>
-              <div class="planning-info">📍 Warehouse, Bordeaux · 23h00</div>
-              <div class="planning-info">👥 18 participants</div>
-              <span class="planning-status status-past">Terminé · ⭐⭐⭐⭐</span>
             </div>
           </div>
         </div>
@@ -1212,28 +1573,38 @@
       <!-- Bottom Nav -->
       <div class="bottom-nav">
         <div class="nav-item" onclick="switchScreen('meet')">
-          <div class="nav-icon">⭐</div>
-          <div class="nav-label">Meet</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/meet-outline.png" alt="Meet">
+            <img class="icon-plein" src="media/icons/meet-plein.png" alt="Meet">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item" onclick="switchScreen('join')">
-          <div class="nav-icon">👥</div>
-          <div class="nav-label">Join</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/commus-outline.png" alt="Commus">
+            <img class="icon-plein" src="media/icons/commus-plein.png" alt="Commus">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item active" onclick="switchScreen('planning')">
-          <div class="nav-icon">🎫</div>
-          <div class="nav-label">Planning</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/planning-outline.png" alt="Planning">
+            <img class="icon-plein" src="media/icons/planning-plein.png" alt="Planning">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item" onclick="switchScreen('chat')">
-          <div class="nav-icon">💬</div>
-          <div class="nav-label">Chat</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/chat-outline.png" alt="Chat">
+            <img class="icon-plein" src="media/icons/chat-plein.png" alt="Chat">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item" onclick="switchScreen('profile')">
-          <div class="nav-icon">👤</div>
-          <div class="nav-label">Profil</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/profil-outline.png" alt="Profil">
+            <img class="icon-plein" src="media/icons/profil-plein.png" alt="Profil">
+          </div>
           <div class="nav-dot"></div>
         </div>
       </div>
@@ -1249,11 +1620,13 @@
       <div class="scroll-content">
         <div class="chat-section-title">Communautés</div>
 
-        <div class="chat-item">
-          <div class="chat-avatar" style="background:linear-gradient(135deg,#AAC538,#ABD4FD)">🏃</div>
+        <div class="chat-item" onclick="openChat('running-club')">
+          <div class="chat-avatar" style="background:rgba(170,197,56,0.15)">
+            <img src="brand/graphisme/mascottes/mascotte-run.svg" style="width:36px;height:36px;object-fit:contain">
+          </div>
           <div class="chat-info">
             <div class="chat-name">Running Club</div>
-            <div class="chat-preview">Tom K. : RDV quai des Chartrons à 6h25 😎</div>
+            <div class="chat-preview">Eva : RDV quai des Chartrons à 6h25 😎</div>
           </div>
           <div class="chat-right">
             <div class="chat-time">6 min</div>
@@ -1262,24 +1635,28 @@
         </div>
 
         <div class="chat-divider"></div>
-        <div class="chat-item">
-          <div class="chat-avatar" style="background:linear-gradient(135deg,#FCF3A4,#FF5F40)">🍹</div>
+        <div class="chat-item" onclick="openChat('drinks-vibes')">
+          <div class="chat-avatar" style="background:rgba(253,158,188,0.18)">
+            <img src="brand/graphisme/mascottes/mascotte-cocktail.svg" style="width:36px;height:36px;object-fit:contain">
+          </div>
           <div class="chat-info">
             <div class="chat-name">Drinks & Vibes</div>
-            <div class="chat-preview">Alex B. : Qui est dispo jeudi soir ?</div>
+            <div class="chat-preview">Cloane : On sera 10 ce soir 🍹</div>
           </div>
           <div class="chat-right">
             <div class="chat-time">1h</div>
-            <div class="chat-unread">12</div>
+            <div class="chat-unread">5</div>
           </div>
         </div>
 
         <div class="chat-divider"></div>
-        <div class="chat-item">
-          <div class="chat-avatar" style="background:linear-gradient(135deg,#FF5F40,#23554C)">🎭</div>
+        <div class="chat-item" onclick="openChat('theodora-fan')">
+          <div class="chat-avatar" style="background:rgba(171,212,253,0.2)">
+            <img src="brand/graphisme/mascottes/mascotte-danse.svg" style="width:36px;height:36px;object-fit:contain">
+          </div>
           <div class="chat-info">
             <div class="chat-name">Theodora Fan Club</div>
-            <div class="chat-preview">Nouvel épisode dispo 🔥🔥🔥</div>
+            <div class="chat-preview">Lou-Anne : Nouvel épisode dispo 🔥🔥🔥</div>
           </div>
           <div class="chat-right">
             <div class="chat-time">3h</div>
@@ -1290,11 +1667,13 @@
         <div style="height:20px"></div>
         <div class="chat-section-title">Messages directs</div>
 
-        <div class="chat-item">
-          <div class="chat-avatar circle" style="background:linear-gradient(135deg,#FF5F40,#23554C)">🦋</div>
+        <div class="chat-item" onclick="openChat('cloane')">
+          <div class="chat-avatar circle" style="overflow:hidden">
+            <img src="media/meet/pub1-rockwood/avatar.jpg" style="width:48px;height:48px;object-fit:cover;border-radius:50%">
+          </div>
           <div class="chat-info">
-            <div class="chat-name">Léa M.</div>
-            <div class="chat-preview">T'es là ce soir du coup ? 🎉</div>
+            <div class="chat-name">Cloane</div>
+            <div class="chat-preview">T'es dispo ce soir pour le RockWood ? 🍹</div>
           </div>
           <div class="chat-right">
             <div class="chat-time">14 min</div>
@@ -1303,73 +1682,103 @@
         </div>
 
         <div class="chat-divider"></div>
-        <div class="chat-item">
-          <div class="chat-avatar circle" style="background:linear-gradient(135deg,#AAC538,#ABD4FD)">🌊</div>
+        <div class="chat-item" onclick="openChat('eva')">
+          <div class="chat-avatar circle" style="overflow:hidden">
+            <img src="media/meet/pub2-running/avatar.jpg" style="width:48px;height:48px;object-fit:cover;border-radius:50%">
+          </div>
           <div class="chat-info">
-            <div class="chat-name">Tom K.</div>
-            <div class="chat-preview">Top ! À demain matin alors 💪</div>
+            <div class="chat-name">Eva</div>
+            <div class="chat-preview">Demain 6h25, quai des Chartrons 💪</div>
           </div>
           <div class="chat-right">
-            <div class="chat-time">Hier</div>
+            <div class="chat-time">20h19</div>
             <div style="width:20px;height:20px"></div>
           </div>
         </div>
 
         <div class="chat-divider"></div>
-        <div class="chat-item">
-          <div class="chat-avatar circle" style="background:linear-gradient(135deg,#FCF3A4,#FF5F40)">🌟</div>
+        <div class="chat-item" onclick="openChat('hugo')">
+          <div class="chat-avatar circle" style="overflow:hidden">
+            <img src="media/meet/pub4-afterwork/avatar.jpg" style="width:48px;height:48px;object-fit:cover;border-radius:50%">
+          </div>
           <div class="chat-info">
-            <div class="chat-name">Alex B.</div>
-            <div class="chat-preview">Check l'after-work que j'ai posté !</div>
+            <div class="chat-name">Hugo</div>
+            <div class="chat-preview">⏳ En cours de validation haha</div>
           </div>
           <div class="chat-right">
-            <div class="chat-time">Hier</div>
+            <div class="chat-time">11h35</div>
             <div style="width:20px;height:20px"></div>
           </div>
         </div>
 
+        <div class="chat-divider"></div>
+        <div class="chat-item" onclick="openChat('lou-anne')">
+          <div class="chat-avatar circle" style="overflow:hidden">
+            <img src="media/meet/pub3-concert/avatar.jpg" style="width:48px;height:48px;object-fit:cover;border-radius:50%">
+          </div>
+          <div class="chat-info">
+            <div class="chat-name">Lou-Anne</div>
+            <div class="chat-preview">Je valide dès que je vois ta demande 🎤</div>
+          </div>
+          <div class="chat-right">
+            <div class="chat-time">09h06</div>
+            <div style="width:20px;height:20px"></div>
+          </div>
+        </div>
+
+        <div style="height:20px"></div>
       </div>
 
       <!-- Bottom Nav -->
       <div class="bottom-nav">
         <div class="nav-item" onclick="switchScreen('meet')">
-          <div class="nav-icon">⭐</div>
-          <div class="nav-label">Meet</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/meet-outline.png" alt="Meet">
+            <img class="icon-plein" src="media/icons/meet-plein.png" alt="Meet">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item" onclick="switchScreen('join')">
-          <div class="nav-icon">👥</div>
-          <div class="nav-label">Join</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/commus-outline.png" alt="Commus">
+            <img class="icon-plein" src="media/icons/commus-plein.png" alt="Commus">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item" onclick="switchScreen('planning')">
-          <div class="nav-icon">🎫</div>
-          <div class="nav-label">Planning</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/planning-outline.png" alt="Planning">
+            <img class="icon-plein" src="media/icons/planning-plein.png" alt="Planning">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item active" onclick="switchScreen('chat')">
-          <div class="nav-icon">💬</div>
-          <div class="nav-label">Chat</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/chat-outline.png" alt="Chat">
+            <img class="icon-plein" src="media/icons/chat-plein.png" alt="Chat">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item" onclick="switchScreen('profile')">
-          <div class="nav-icon">👤</div>
-          <div class="nav-label">Profil</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/profil-outline.png" alt="Profil">
+            <img class="icon-plein" src="media/icons/profil-plein.png" alt="Profil">
+          </div>
           <div class="nav-dot"></div>
         </div>
       </div>
     </div>
 
     <!-- ==================== SCREEN: PROFILE ==================== -->
-    <div class="screen" id="screen-profile">
+    <div class="screen" id="screen-profile" style="position:relative">
       <div class="scroll-content">
         <div class="profile-header">
           <div class="profile-settings">⚙️</div>
           <div class="profile-avatar-wrap">
-            <img src="media/profile/charles jeune.jpg" style="width:80px;height:80px;border-radius:50%;object-fit:cover;object-position:center top;border:3px solid var(--bg);flex-shrink:0;box-shadow:0 2px 12px rgba(77,51,38,0.15)">
+            <img src="media/profile/charles.jpg" style="width:80px;height:80px;border-radius:50%;object-fit:cover;object-position:center top;border:3px solid var(--bg);flex-shrink:0;box-shadow:0 2px 12px rgba(77,51,38,0.15)">
             <div class="profile-basic">
-              <div class="profile-name">Charles Dupont</div>
-              <div class="profile-handle">@charlesdupont</div>
+              <div class="profile-name">Charles Ranguin</div>
+              <div class="profile-handle">@charlesranguin</div>
               <div class="profile-location">📍 Bordeaux</div>
             </div>
           </div>
@@ -1380,7 +1789,7 @@
               <div class="stat-label">Sorties</div>
             </div>
             <div class="stat-item">
-              <div class="stat-num">5</div>
+              <div class="stat-num">3</div>
               <div class="stat-label">Organisées</div>
             </div>
             <div class="stat-item">
@@ -1388,16 +1797,16 @@
               <div class="stat-label">Commus</div>
             </div>
             <div class="stat-item">
-              <div class="stat-num">⭐ 4.8</div>
+              <div class="stat-num">⭐ 4.9</div>
               <div class="stat-label">Note</div>
             </div>
           </div>
 
           <div class="profile-tags">
-            <span class="tag tag-yellow">🍺 Drinks</span>
-            <span class="tag tag-orange">🎵 Concert</span>
+            <span class="tag tag-blue">🎭 Théâtre</span>
+            <span class="tag tag-yellow">💡 Innovation</span>
             <span class="tag tag-green">🏃 Sport</span>
-            <span class="tag tag-blue">Networking</span>
+            <span class="tag tag-pink">🍹 Drinks</span>
           </div>
         </div>
 
@@ -1407,73 +1816,50 @@
           <div class="profile-tab" onclick="switchProfileTab(this,'about')">À propos</div>
         </div>
 
-        <!-- Publications — event cards -->
+        <!-- Publications -->
         <div id="ptab-pubs">
-          <div style="padding:4px 0 8px 20px;font-size:12px;color:var(--gray)">5 sorties passées</div>
+          <div style="padding:4px 0 8px 20px;font-size:12px;color:var(--gray)">3 sorties passées</div>
 
-          <!-- Card 1 -->
-          <div class="event-card">
+          <!-- Card 1 — Cap Ferret -->
+          <div class="event-card" onclick="openDetail('capferret','past')">
             <div class="card-img">
-              <img src="media/profile/publications-profile/charles-publications-profile.jpeg" style="width:100%;height:100%;object-fit:cover;object-position:center 30%">
+              <img src="media/profile/pub-soiree.jpeg" style="width:100%;height:100%;object-fit:cover;object-position:center 55%">
               <div class="card-badge" style="background:rgba(77,51,38,0.5)">✓ Participé</div>
             </div>
             <div class="card-body">
               <div class="card-meta">
                 <div class="card-author">
-                  <div class="avatar-sm" style="background:linear-gradient(135deg,#FF5F40,#23554C)">🦋</div>
-                  <span class="author-name">Léa M.</span>
+                  <div class="avatar-sm"><img src="media/profile/charles.jpg" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+                  <span class="author-name">Charles</span>
                 </div>
-                <span class="card-date">Mer 23 avr · 22h</span>
+                <span class="card-date">Sam 5 avr · 18h</span>
               </div>
-              <div class="card-title">Soirée at Le Bootlegger 🍸</div>
+              <div class="card-title">Soirée au Cap Ferret 🌊</div>
               <div class="card-tags">
-                <span class="tag tag-yellow">🍺 Bar</span>
-                <span class="tag tag-violet">FEM</span>
-                <span class="tag tag-blue">LGBTQ+</span>
+                <span class="tag tag-blue">Plage</span>
+                <span class="tag tag-yellow">Soirée</span>
               </div>
             </div>
           </div>
 
-          <!-- Card 2 -->
-          <div class="event-card">
+          <!-- Card 2 — Yoga -->
+          <div class="event-card" onclick="openDetail('yoga','past')">
             <div class="card-img">
-              <img src="media/profile/publications-profile/charles-publications-profile.jpeg" style="width:100%;height:100%;object-fit:cover;object-position:center 60%">
+              <img src="media/meet/pub5-yoga/cover.webp" style="width:100%;height:100%;object-fit:cover">
               <div class="card-badge" style="background:rgba(77,51,38,0.5)">✓ Participé</div>
             </div>
             <div class="card-body">
               <div class="card-meta">
                 <div class="card-author">
-                  <div class="avatar-sm" style="background:linear-gradient(135deg,#FF5F40,#FCF3A4)">🎵</div>
-                  <span class="author-name">Nour A.</span>
+                  <div class="avatar-sm"><img src="media/meet/pub5-yoga/avatar.png" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+                  <span class="author-name">Paul-Hugo</span>
                 </div>
-                <span class="card-date">Sam 12 avr · 20h</span>
+                <span class="card-date">Dim 20 avr · 10h</span>
               </div>
-              <div class="card-title">Concert Jazz au Rocher de Palmer 🎷</div>
+              <div class="card-title">Yoga sur les quais 🧘</div>
               <div class="card-tags">
-                <span class="tag tag-orange">🎵 Concert</span>
-                <span class="tag tag-green">Jazz</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="event-card">
-            <div class="card-img">
-              <img src="media/profile/publications-profile/charles-publications-profile.jpeg" style="width:100%;height:100%;object-fit:cover;object-position:center 10%">
-              <div class="card-badge" style="background:rgba(77,51,38,0.5)">✓ Participé</div>
-            </div>
-            <div class="card-body">
-              <div class="card-meta">
-                <div class="card-author">
-                  <div class="avatar-sm" style="background:linear-gradient(135deg,#FCF3A4,#FF5F40)">🌟</div>
-                  <span class="author-name">Alex B.</span>
-                </div>
-                <span class="card-date">Jeu 10 avr · 19h</span>
-              </div>
-              <div class="card-title">After-work drinks Chartrons 🌅</div>
-              <div class="card-tags">
-                <span class="tag tag-yellow">🍺 Drinks</span>
-                <span class="tag tag-pink">Détente</span>
+                <span class="tag tag-green">Yoga</span>
+                <span class="tag tag-blue">Bien-être</span>
               </div>
             </div>
           </div>
@@ -1482,18 +1868,18 @@
         <!-- Commus (hidden) -->
         <div id="ptab-commus" style="display:none; padding: 0 20px;">
           <div style="display:flex;flex-direction:column;gap:10px">
-            <div style="background:var(--card);border-radius:var(--radius-md);padding:14px;display:flex;align-items:center;gap:12px">
-              <span style="font-size:28px">🏃</span>
+            <div onclick="openCommu('running')" style="background:var(--card);border-radius:var(--radius-md);padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer">
+              <img src="brand/graphisme/mascottes/mascotte-run.svg" style="width:36px;height:36px;object-fit:contain">
               <div><div style="font-weight:700;color:var(--texte)">Running Club</div><div style="font-size:12px;color:var(--gray)">142 membres</div></div>
-              <span style="margin-left:auto;font-size:11px;color:var(--green);font-weight:700">Admin</span>
+              <span style="margin-left:auto;font-size:11px;color:var(--lime);font-weight:700">Admin</span>
             </div>
-            <div style="background:var(--card);border-radius:var(--radius-md);padding:14px;display:flex;align-items:center;gap:12px">
-              <span style="font-size:28px">🍹</span>
+            <div onclick="openCommu('drinks')" style="background:var(--card);border-radius:var(--radius-md);padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer">
+              <img src="brand/graphisme/mascottes/mascotte-cocktail.svg" style="width:36px;height:36px;object-fit:contain">
               <div><div style="font-weight:700;color:var(--texte)">Drinks & Vibes</div><div style="font-size:12px;color:var(--gray)">89 membres</div></div>
               <span style="margin-left:auto;font-size:11px;color:var(--gray);font-weight:700">Membre</span>
             </div>
-            <div style="background:var(--card);border-radius:var(--radius-md);padding:14px;display:flex;align-items:center;gap:12px">
-              <span style="font-size:28px">🎭</span>
+            <div onclick="openCommu('theodora')" style="background:var(--card);border-radius:var(--radius-md);padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer">
+              <img src="brand/graphisme/mascottes/mascotte-danse.svg" style="width:36px;height:36px;object-fit:contain">
               <div><div style="font-weight:700;color:var(--texte)">Theodora Fan Club</div><div style="font-size:12px;color:var(--gray)">34 membres</div></div>
               <span style="margin-left:auto;font-size:11px;color:var(--gray);font-weight:700">Membre</span>
             </div>
@@ -1503,44 +1889,61 @@
         <!-- À propos (hidden) -->
         <div id="ptab-about" style="display:none; padding: 0 20px;">
           <div style="background:var(--card);border-radius:var(--radius-md);padding:16px;margin-bottom:12px">
-            <div style="font-size:13px;color:var(--gray);line-height:1.6">
-              Étudiante en communication à Bordeaux. Passionnée de musique live, de sport et de belles rencontres. Toujours partante pour une soirée improvisée ou un footing à l'aube ☀️
+            <div style="font-size:14px;color:var(--texte);line-height:1.6">
+              Étudiant ingé à l'Enseirb à Bordeaux, je suis stagiaire chez Thales. Passionné par l'innovation et le théâtre, je suis toujours partant pour passer un bon moment autour d'une session d'impro ou autour d'un verre en terrasse !
             </div>
           </div>
           <div style="background:var(--card);border-radius:var(--radius-md);padding:16px">
             <div style="font-size:12px;color:var(--gray);margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px">Membre depuis</div>
-            <div style="font-size:15px;color:var(--texte);font-weight:700">Janvier 2026</div>
+            <div style="font-size:15px;color:var(--texte);font-weight:700">2 mois</div>
           </div>
         </div>
 
-        <div style="height:90px"></div>
+        <div style="height:100px"></div>
       </div>
+
+      <!-- BuddyCount FAB -->
+      <button class="bc-fab" onclick="openBuddyCount()">
+        <span style="font-size:16px">🤝</span>
+        <span class="bc-fab-text">BuddyCount</span>
+        <span class="bc-fab-badge">23</span>
+      </button>
 
       <!-- Bottom Nav -->
       <div class="bottom-nav">
         <div class="nav-item" onclick="switchScreen('meet')">
-          <div class="nav-icon">⭐</div>
-          <div class="nav-label">Meet</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/meet-outline.png" alt="Meet">
+            <img class="icon-plein" src="media/icons/meet-plein.png" alt="Meet">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item" onclick="switchScreen('join')">
-          <div class="nav-icon">👥</div>
-          <div class="nav-label">Join</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/commus-outline.png" alt="Commus">
+            <img class="icon-plein" src="media/icons/commus-plein.png" alt="Commus">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item" onclick="switchScreen('planning')">
-          <div class="nav-icon">🎫</div>
-          <div class="nav-label">Planning</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/planning-outline.png" alt="Planning">
+            <img class="icon-plein" src="media/icons/planning-plein.png" alt="Planning">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item" onclick="switchScreen('chat')">
-          <div class="nav-icon">💬</div>
-          <div class="nav-label">Chat</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/chat-outline.png" alt="Chat">
+            <img class="icon-plein" src="media/icons/chat-plein.png" alt="Chat">
+          </div>
           <div class="nav-dot"></div>
         </div>
         <div class="nav-item active" onclick="switchScreen('profile')">
-          <div class="nav-icon">👤</div>
-          <div class="nav-label">Profil</div>
+          <div class="nav-icon">
+            <img class="icon-outline" src="media/icons/profil-outline.png" alt="Profil">
+            <img class="icon-plein" src="media/icons/profil-plein.png" alt="Profil">
+          </div>
           <div class="nav-dot"></div>
         </div>
       </div>
@@ -1556,7 +1959,7 @@
       <button class="back-btn" onclick="closeDetail()">←</button>
 
       <div class="detail-hero" id="detail-hero">
-        <div class="detail-hero-bg" id="detail-hero-bg">🎉</div>
+        <img id="detail-hero-img" style="width:100%;height:100%;object-fit:cover;display:block;" src="" alt="">
         <div class="detail-hero-overlay"></div>
       </div>
 
@@ -1564,7 +1967,7 @@
         <div class="detail-title" id="detail-title">Soirée at Le Bootlegger 🍸</div>
 
         <div class="detail-host">
-          <div class="avatar-md" style="background:linear-gradient(135deg,#FF5F40,#23554C)">🦋</div>
+          <img id="detail-host-avatar" class="avatar-md" style="object-fit:cover;border-radius:50%;" src="" alt="">
           <div>
             <div class="host-name" id="detail-host-name">Léa Martin</div>
             <div class="host-label">Organisatrice</div>
@@ -1594,6 +1997,7 @@
           </div>
         </div>
 
+        <div id="detail-photos" style="display:none;margin-bottom:16px"></div>
         <div class="detail-desc" id="detail-desc">
           Ce soir, on s'installe au Bootlegger pour une soirée entre étudiants. Cocktails, playlist soignée et bonne ambiance garantie. Tout le monde est bienvenu, peu importe ton niveau de sociabilité 😄
         </div>
@@ -1622,69 +2026,341 @@
       </div>
     </div>
 
+    <!-- BOTTOM SHEET — demande en attente -->
+    <div id="join-overlay" onclick="closeJoinSheet()"></div>
+    <div id="join-sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-avatar-wrap">
+        <img id="sheet-avatar" src="" alt="">
+      </div>
+      <div style="text-align:center">
+        <div class="sheet-status-badge">
+          <div class="sheet-dot-pulse"></div>
+          En attente de validation
+        </div>
+      </div>
+      <div class="sheet-title">Demande envoyée ✓</div>
+      <div class="sheet-msg" id="sheet-msg">
+        <strong id="sheet-host-name"></strong> évalue ta demande.<br>On te notifie dès que c'est bon 👍
+      </div>
+      <button class="sheet-close-btn" onclick="closeJoinSheet()">Compris !</button>
+    </div>
+
+  <!-- COMMU DETAIL SHEET -->
+  <div id="commu-detail-overlay" onclick="closeCommuDetail()"></div>
+  <div id="commu-detail-sheet">
+    <div class="sheet-handle"></div>
+    <div style="text-align:center;margin-bottom:16px">
+      <img id="commu-detail-mascot" style="width:80px;height:80px;object-fit:contain" src="" alt="">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:var(--jaune);color:#7A6010;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;margin-top:8px" id="commu-detail-badge">Public</div>
+    </div>
+    <div class="sheet-title" id="commu-detail-name"></div>
+    <div style="text-align:center;font-size:12px;color:var(--gray);margin-bottom:8px" id="commu-detail-members"></div>
+    <div class="sheet-msg" id="commu-detail-desc"></div>
+    <div style="display:flex;gap:8px;justify-content:center;margin-bottom:20px" id="commu-detail-avatars"></div>
+    <button class="sheet-close-btn" id="commu-detail-btn" onclick="toggleJoinCommu()">Rejoindre</button>
+    <button onclick="closeCommuDetail()" style="width:100%;background:none;border:none;color:var(--gray);font-size:14px;font-weight:600;padding:12px;cursor:pointer;font-family:inherit">Fermer</button>
   </div>
+
+  <!-- CREATE COMMU SHEET -->
+  <div id="create-commu-overlay" onclick="closeCreateCommu()"></div>
+  <div id="create-commu-sheet">
+    <div class="sheet-handle"></div>
+
+    <!-- Progress -->
+    <div style="display:flex;gap:6px;justify-content:center;margin-bottom:20px">
+      <div class="create-step-dot active" id="dot-1"></div>
+      <div class="create-step-dot" id="dot-2"></div>
+      <div class="create-step-dot" id="dot-3"></div>
+    </div>
+
+    <!-- Step 1: Info -->
+    <div class="create-step active" id="create-step-1">
+      <div class="sheet-title">Nouvelle commu 🎉</div>
+      <div style="margin-bottom:16px">
+        <input id="commu-input-name" type="text" placeholder="Nom de la communauté" style="width:100%;padding:14px 16px;border-radius:var(--radius-md);border:1.5px solid rgba(77,51,38,0.15);font-size:15px;font-family:inherit;background:#fff;color:var(--texte);outline:none;box-sizing:border-box">
+      </div>
+      <div style="margin-bottom:20px">
+        <textarea id="commu-input-desc" placeholder="À quoi sert cette communauté ?" rows="3" style="width:100%;padding:14px 16px;border-radius:var(--radius-md);border:1.5px solid rgba(77,51,38,0.15);font-size:14px;font-family:inherit;background:#fff;color:var(--texte);outline:none;resize:none;box-sizing:border-box"></textarea>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#fff;border-radius:var(--radius-md);border:1.5px solid rgba(77,51,38,0.15);margin-bottom:24px">
+        <span style="font-size:14px;font-weight:600;color:var(--texte)">Communauté publique</span>
+        <div id="privacy-toggle" onclick="togglePrivacy()" style="width:44px;height:26px;background:#FF5F40;border-radius:100px;position:relative;cursor:pointer;transition:background 0.2s">
+          <div style="position:absolute;top:3px;right:3px;width:20px;height:20px;background:#fff;border-radius:50%;transition:transform 0.2s"></div>
+        </div>
+      </div>
+      <button class="sheet-close-btn" onclick="nextCreateStep(1)">Suivant →</button>
+    </div>
+
+    <!-- Step 2: Mascot -->
+    <div class="create-step" id="create-step-2">
+      <div class="sheet-title">Choisis ton icône 🎨</div>
+      <div class="sheet-msg" style="margin-bottom:16px">L'icône qui représente ta commu</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px" id="mascot-picker">
+        <div class="mascot-option" onclick="selectMascot(this,'mascotte-normal')"><img src="brand/graphisme/mascottes/mascotte-normal.svg" alt=""></div>
+        <div class="mascot-option" onclick="selectMascot(this,'mascotte-cocktail')"><img src="brand/graphisme/mascottes/mascotte-cocktail.svg" alt=""></div>
+        <div class="mascot-option" onclick="selectMascot(this,'mascotte-pizza')"><img src="brand/graphisme/mascottes/mascotte-pizza.svg" alt=""></div>
+        <div class="mascot-option" onclick="selectMascot(this,'mascotte-peinture')"><img src="brand/graphisme/mascottes/mascotte-peinture.svg" alt=""></div>
+        <div class="mascot-option" onclick="selectMascot(this,'mascotte-run')"><img src="brand/graphisme/mascottes/mascotte-run.svg" alt=""></div>
+        <div class="mascot-option" onclick="selectMascot(this,'mascotte-yoga')"><img src="brand/graphisme/mascottes/mascotte-yoga.svg" alt=""></div>
+        <div class="mascot-option" onclick="selectMascot(this,'mascotte-danse')"><img src="brand/graphisme/mascottes/mascotte-danse.svg" alt=""></div>
+        <div class="mascot-option" onclick="selectMascot(this,'mascotte-fitness')"><img src="brand/graphisme/mascottes/mascotte-fitness.svg" alt=""></div>
+        <div class="mascot-option" onclick="selectMascot(this,'mascotte-impressionne')"><img src="brand/graphisme/mascottes/mascotte-impressionne.svg" alt=""></div>
+        <div class="mascot-option" onclick="selectMascot(this,'mascotte-malicieux')"><img src="brand/graphisme/mascottes/mascotte-malicieux.svg" alt=""></div>
+      </div>
+      <button class="sheet-close-btn" onclick="nextCreateStep(2)">Suivant →</button>
+      <button onclick="nextCreateStep(0)" style="width:100%;background:none;border:none;color:var(--gray);font-size:14px;font-weight:600;padding:12px;cursor:pointer;font-family:inherit">← Retour</button>
+    </div>
+
+    <!-- Step 3: Invite -->
+    <div class="create-step" id="create-step-3">
+      <div class="sheet-title">Invite des amis 👋</div>
+      <div class="sheet-msg" style="margin-bottom:16px">Qui rejoins ta commu dès le départ ?</div>
+      <div style="margin-bottom:16px">
+        <input type="text" placeholder="Cherche un profil..." oninput="filterInvite(this.value)" style="width:100%;padding:12px 16px;border-radius:var(--radius-md);border:1.5px solid rgba(77,51,38,0.15);font-size:14px;font-family:inherit;background:#fff;color:var(--texte);outline:none;box-sizing:border-box">
+      </div>
+      <div id="invite-list" style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+        <div class="invite-row" data-name="Charles Ranguin">
+          <img src="media/profile/charles.jpg" alt="Charles">
+          <span>Charles Ranguin</span>
+          <div class="invite-check" onclick="toggleInvite(this)"></div>
+        </div>
+        <div class="invite-row" data-name="Cloane">
+          <img src="media/meet/pub1-rockwood/avatar.jpg" alt="Cloane">
+          <span>Cloane</span>
+          <div class="invite-check" onclick="toggleInvite(this)"></div>
+        </div>
+        <div class="invite-row" data-name="Eva">
+          <img src="media/meet/pub2-running/avatar.jpg" alt="Eva">
+          <span>Eva</span>
+          <div class="invite-check" onclick="toggleInvite(this)"></div>
+        </div>
+        <div class="invite-row" data-name="Lou-Anne">
+          <img src="media/meet/pub3-concert/avatar.jpg" alt="Lou-Anne">
+          <span>Lou-Anne</span>
+          <div class="invite-check" onclick="toggleInvite(this)"></div>
+        </div>
+        <div class="invite-row" data-name="Hugo">
+          <img src="media/meet/pub4-afterwork/avatar.jpg" alt="Hugo">
+          <span>Hugo</span>
+          <div class="invite-check" onclick="toggleInvite(this)"></div>
+        </div>
+        <div class="invite-row" data-name="Paul-Hugo">
+          <img src="media/meet/pub5-yoga/avatar.png" alt="Paul-Hugo">
+          <span>Paul-Hugo</span>
+          <div class="invite-check" onclick="toggleInvite(this)"></div>
+        </div>
+      </div>
+      <button class="sheet-close-btn" onclick="createCommu()">Créer la communauté ✨</button>
+      <button onclick="nextCreateStep(1)" style="width:100%;background:none;border:none;color:var(--gray);font-size:14px;font-weight:600;padding:12px;cursor:pointer;font-family:inherit">← Retour</button>
+    </div>
+  </div>
+
+  <!-- SCREEN CONVERSATION -->
+  <div id="screen-conversation">
+    <div class="conv-header">
+      <button class="conv-back-btn" onclick="closeChat()">‹</button>
+      <div class="conv-avatar" id="conv-avatar-wrap" onclick="openConvProfile()" style="cursor:pointer">
+        <img id="conv-header-avatar" src="" alt="">
+      </div>
+      <div onclick="openConvProfile()" style="cursor:pointer">
+        <div class="conv-name" id="conv-header-name"></div>
+        <div class="conv-status">En ligne</div>
+      </div>
+    </div>
+
+    <div class="conv-messages" id="conv-messages">
+      <!-- Messages injectés par JS -->
+    </div>
+
+    <div class="conv-input-area">
+      <div class="sticker-picker" id="sticker-picker">
+        <div class="sticker-item" onclick="sendSticker('mascotte-normal')"><img src="brand/graphisme/mascottes/mascotte-normal.svg" alt=""></div>
+        <div class="sticker-item" onclick="sendSticker('mascotte-cocktail')"><img src="brand/graphisme/mascottes/mascotte-cocktail.svg" alt=""></div>
+        <div class="sticker-item" onclick="sendSticker('mascotte-danse')"><img src="brand/graphisme/mascottes/mascotte-danse.svg" alt=""></div>
+        <div class="sticker-item" onclick="sendSticker('mascotte-run')"><img src="brand/graphisme/mascottes/mascotte-run.svg" alt=""></div>
+        <div class="sticker-item" onclick="sendSticker('mascotte-yoga')"><img src="brand/graphisme/mascottes/mascotte-yoga.svg" alt=""></div>
+        <div class="sticker-item" onclick="sendSticker('mascotte-fitness')"><img src="brand/graphisme/mascottes/mascotte-fitness.svg" alt=""></div>
+        <div class="sticker-item" onclick="sendSticker('mascotte-pizza')"><img src="brand/graphisme/mascottes/mascotte-pizza.svg" alt=""></div>
+        <div class="sticker-item" onclick="sendSticker('mascotte-peinture')"><img src="brand/graphisme/mascottes/mascotte-peinture.svg" alt=""></div>
+        <div class="sticker-item" onclick="sendSticker('mascotte-impressionne')"><img src="brand/graphisme/mascottes/mascotte-impressionne.svg" alt=""></div>
+        <div class="sticker-item" onclick="sendSticker('mascotte-malicieux')"><img src="brand/graphisme/mascottes/mascotte-malicieux.svg" alt=""></div>
+      </div>
+      <div class="conv-input-bar">
+        <button class="conv-sticker-btn" onclick="toggleStickerPicker()" title="Mascottes">🐾</button>
+        <input class="conv-text-input" id="conv-input" type="text" placeholder="Écris un message..." onkeydown="if(event.key==='Enter')sendMessage()">
+        <button class="conv-send-btn" onclick="sendMessage()">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUDDYCOUNT SCREEN -->
+  <div id="buddycount-screen" onclick="bcNextSlide()" style="position:absolute;inset:0;z-index:200;transform:translateY(100%);transition:transform 0.5s cubic-bezier(0.34,1.1,0.64,1);border-radius:50px;overflow:hidden;cursor:pointer">
+
+    <!-- Slide 1 : personnes rencontrées -->
+    <div class="bc-slide" id="bc-slide-1" style="background:#23554C">
+      <div style="position:absolute;top:-80px;right:-80px;width:260px;height:260px;background:rgba(255,255,255,0.05);border-radius:50%"></div>
+      <div style="position:absolute;bottom:-60px;left:-60px;width:220px;height:220px;background:rgba(255,95,64,0.15);border-radius:50%"></div>
+      <div class="bc-content">
+        <div class="bc-label">Ton BuddyCount 2026</div>
+        <div class="bc-number" id="bc-num-1">0</div>
+        <div class="bc-sublabel">personnes<br>rencontrées</div>
+        <img src="brand/graphisme/mascottes/mascotte-impressionne.svg" class="bc-mascot">
+      </div>
+      <div class="bc-tap">Tape pour continuer →</div>
+    </div>
+
+    <!-- Slide 2 : sorties -->
+    <div class="bc-slide" id="bc-slide-2" style="background:#FF5F40;display:none">
+      <div style="position:absolute;top:-60px;left:-60px;width:200px;height:200px;background:rgba(255,255,255,0.08);border-radius:50%"></div>
+      <div class="bc-content">
+        <div class="bc-label">En 2026 t'as fait</div>
+        <div class="bc-number" id="bc-num-2">0</div>
+        <div class="bc-sublabel">sorties</div>
+        <img src="brand/graphisme/mascottes/mascotte-cocktail.svg" class="bc-mascot">
+      </div>
+      <div class="bc-tap">Tape pour continuer →</div>
+    </div>
+
+    <!-- Slide 3 : organisées -->
+    <div class="bc-slide" id="bc-slide-3" style="background:#FCF3A4;display:none">
+      <div style="position:absolute;bottom:-80px;right:-40px;width:240px;height:240px;background:rgba(77,51,38,0.06);border-radius:50%"></div>
+      <div class="bc-content">
+        <div class="bc-label" style="color:rgba(77,51,38,0.6)">T'en as organisé</div>
+        <div class="bc-number" id="bc-num-3" style="color:#4D3326">0</div>
+        <div class="bc-sublabel" style="color:rgba(77,51,38,0.7)">sorties organisées</div>
+        <img src="brand/graphisme/mascottes/mascotte-normal.svg" class="bc-mascot">
+      </div>
+      <div class="bc-tap" style="color:rgba(77,51,38,0.45)">Tape pour continuer →</div>
+    </div>
+
+    <!-- Slide 4 : commus -->
+    <div class="bc-slide" id="bc-slide-4" style="background:#ABD4FD;display:none">
+      <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:rgba(255,255,255,0.2);border-radius:50%"></div>
+      <div class="bc-content">
+        <div class="bc-label" style="color:rgba(35,85,76,0.7)">Tu fais partie de</div>
+        <div class="bc-number" id="bc-num-4" style="color:#23554C">0</div>
+        <div class="bc-sublabel" style="color:rgba(35,85,76,0.6)">communautés</div>
+        <img src="brand/graphisme/mascottes/mascotte-danse.svg" class="bc-mascot">
+      </div>
+      <div class="bc-tap" style="color:rgba(35,85,76,0.45)">Tape pour fermer ✕</div>
+    </div>
+
+  </div>
+
+  <!-- PROFILE SHEET -->
+  <div id="profile-overlay" onclick="closeProfile()"></div>
+  <div id="profile-sheet">
+    <div class="sheet-handle" style="margin-top:10px"></div>
+    <img class="profile-sheet-photo" id="profile-photo" src="" alt="">
+    <div class="profile-sheet-body">
+      <div class="profile-sheet-name" id="profile-name"></div>
+      <div class="profile-sheet-meta" id="profile-meta"></div>
+      <div class="profile-sheet-bio" id="profile-bio"></div>
+      <div class="profile-sheet-label">Centres d'intérêt</div>
+      <div class="profile-tags" id="profile-tags"></div>
+      <div class="profile-sheet-label">Communautés</div>
+      <div class="profile-commus" id="profile-commus"></div>
+    </div>
+    <button class="profile-sheet-close" onclick="closeProfile()">Fermer</button>
+  </div>
+
+  </div><!-- /phone-shell -->
 
   <!-- ==================== JS ==================== -->
   <script>
     // Data for detail screen
     const events = {
       soiree: {
-        title: 'Soirée at Le Bootlegger 🍸',
-        bg: 'linear-gradient(135deg, #1a0533, #FF3CAC40)',
-        emoji: '🎉',
-        host: 'Léa Martin',
-        date: 'Mer 23 avr · 22h',
+        title: 'Soirée au RockWood 🍹',
+        img: 'media/meet/pub1-rockwood/cover.png',
+        avatar: 'media/meet/pub1-rockwood/avatar.jpg',
+        host: 'Cloane',
+        date: 'Mer 23 avr · 23h',
         places: '3 restantes',
-        place: 'Le Bootlegger',
+        place: 'RockWood Bar, Bordeaux',
         commu: 'Drinks & Vibes',
-        desc: 'Ce soir, on s\'installe au Bootlegger pour une soirée entre étudiants. Cocktails, playlist soignée et bonne ambiance garantie. Tout le monde est bienvenu, peu importe ton niveau de sociabilité 😄',
-        tags: '<span class="tag tag-pink">🍸 Bar</span><span class="tag tag-violet">FEM</span><span class="tag tag-blue">LGBTQ+</span>'
+        desc: 'On investit le RockWood ce soir pour une soirée sans prise de tête. Bonne musique, bons verres, bonnes têtes. T\'as envie de sortir ? C\'est le moment.',
+        tags: '<span class="tag tag-pink">Bar</span>'
       },
       running: {
-        title: 'Running Garonne — quai des Chartrons',
-        bg: 'linear-gradient(135deg, #0a2a1a, #2ECC7140)',
-        emoji: '🏃',
-        host: 'Tom Kuhn',
-        date: 'Mar 24 avr · 6h30',
+        title: 'Running Garonne — quai des Chartrons 🏃',
+        img: 'media/meet/pub2-running/cover.jpg',
+        avatar: 'media/meet/pub2-running/avatar.jpg',
+        host: 'Eva',
+        date: 'Jeu 24 avr · 6h30',
         places: '5 restantes',
         place: 'Quai des Chartrons',
         commu: 'Running Club',
-        desc: 'Sortie running le long de la Garonne. 8 km tranquilles, allure modérée. On se retrouve côté quai des Chartrons, face au fleuve. Niveau débutant accepté, l\'important c\'est de bouger 🌅',
-        tags: '<span class="tag tag-green">🏃 Sport</span><span class="tag tag-blue">Débutant OK</span>'
+        desc: '8 km le long de la Garonne au lever du soleil. Allure tranquille, tout le monde peut venir. On se retrouve quai des Chartrons côté fleuve. Débutants bienvenus.',
+        tags: '<span class="tag tag-green">Sport</span><span class="tag tag-blue">Débutant OK</span>'
       },
       concert: {
-        title: 'Concert Jazz au Rocher de Palmer 🎷',
-        bg: 'linear-gradient(135deg, #1a0a00, #FF6B3540)',
-        emoji: '🎸',
-        host: 'Nour Allaoui',
+        title: 'Concert Vald !! 🎤',
+        img: 'media/meet/pub3-concert/cover.jpg',
+        avatar: 'media/meet/pub3-concert/avatar.jpg',
+        host: 'Lou-Anne',
         date: 'Sam 26 avr · 20h',
-        places: 'COMPLET',
-        place: 'Rocher de Palmer',
-        commu: 'Ciné & Culture',
-        desc: 'Soirée jazz avec deux groupes locaux + une tête d\'affiche parisienne. Ambiance intimiste, salle de 400 places. Groupe complet — tu peux rejoindre la liste d\'attente.',
-        tags: '<span class="tag tag-orange">🎵 Concert</span><span class="tag tag-yellow">Jazz</span><span class="tag tag-violet">FLINTAQ</span>'
+        places: '2 restantes',
+        place: 'Salle de concert, Bordeaux',
+        commu: 'Concerts & Lives',
+        desc: 'Vald en concert, on y va en groupe. 2 places restantes, pas le moment de réfléchir. Lou-Anne coordonne les billets, écris-lui directement.',
+        tags: '<span class="tag tag-orange">Concert</span><span class="tag tag-violet">Rap</span>'
       },
       drinks: {
-        title: 'After-work drinks Chartrons 🌅',
-        bg: 'linear-gradient(135deg, #1a1500, #FFD16640)',
-        emoji: '🍻',
-        host: 'Alex Bernard',
-        date: 'Jeu 24 avr · 19h',
-        places: '8 restantes',
-        place: 'Bar des Chartrons',
+        title: 'Show Drag au Bien Public 🎭',
+        img: 'media/meet/pub4-afterwork/cover.jpg',
+        avatar: 'media/meet/pub4-afterwork/avatar.jpg',
+        host: 'Hugo',
+        date: 'Ven 25 avr · 21h',
+        places: '6 restantes',
+        place: 'Le Bien Public, Bordeaux',
         commu: 'Drinks & Vibes',
-        desc: 'Fin de journée bien méritée. On se pose en terrasse pour un verre, on voit qui débarque. Pas d\'agenda, pas de pression. Juste un after-work sympa entre gens du coin 🌞',
-        tags: '<span class="tag tag-yellow">🍺 Drinks</span><span class="tag tag-pink">Détente</span>'
+        desc: 'Ça va Slaaaaaaay comme j\'aime ! Performances incroyables, ambiance survoltée, tout le monde bienvenu. On y va en groupe.',
+        tags: '<span class="tag tag-pink">Fun</span><span class="tag tag-violet">LGBTQ+</span>'
+      },
+      capferret: {
+        title: 'Soirée au Cap Ferret 🌊',
+        img: 'media/profile/pub-soiree.jpeg',
+        imgPosition: 'center 55%',
+        avatar: 'media/profile/charles.jpg',
+        host: 'Charles',
+        date: 'Sam 5 avr · 18h',
+        places: 'COMPLET',
+        place: 'Cap Ferret, Gironde',
+        commu: 'Drinks & Vibes',
+        desc: 'Soirée sur la plage au Cap Ferret avec les potes. Coucher de soleil, feu de camp, bonne ambiance. Une de ces soirées dont on se souvient longtemps.',
+        tags: '<span class="tag tag-blue">Plage</span><span class="tag tag-yellow">Soirée</span><span class="tag tag-green">Plein air</span>',
+        photos: [
+          'media/profile/pub-soiree.jpeg',
+          'media/profile/cap-ferret.jpg',
+          'media/profile/charles.jpg',
+        ]
+      },
+      yoga: {
+        title: 'Yoga sur les quais 🧘',
+        img: 'media/meet/pub5-yoga/cover.webp',
+        avatar: 'media/meet/pub5-yoga/avatar.png',
+        host: 'Paul-Hugo',
+        date: 'Dim 27 avr · 10h',
+        places: '4 restantes',
+        place: 'Quais de Bordeaux',
+        commu: 'Yoga & Mindset',
+        desc: 'Session yoga en plein air sur les quais. 1h de flow tranquille pour bien démarrer le dimanche. Tapis recommandé, tous niveaux bienvenus.',
+        tags: '<span class="tag tag-green">Yoga</span><span class="tag tag-blue">Bien-être</span>'
       }
     };
 
     let currentScreen = 'meet';
+    let currentEvent = null;
 
     // Splash screen
     window.addEventListener('load', () => {
       setTimeout(() => {
         document.getElementById('splash').classList.add('hide');
-      }, 500);
+      }, 1500);
     });
 
     function switchScreen(name) {
@@ -1702,12 +2378,15 @@
       }
     }
 
-    function openDetail(eventId) {
+    function openDetail(eventId, state) {
       const ev = events[eventId];
       if (!ev) return;
+      currentEvent = ev;
 
-      document.getElementById('detail-hero-bg').style.background = ev.bg;
-      document.getElementById('detail-hero-bg').textContent = ev.emoji;
+      const heroImg = document.getElementById('detail-hero-img');
+      heroImg.src = ev.img;
+      heroImg.style.objectPosition = ev.imgPosition || 'center center';
+      document.getElementById('detail-host-avatar').src = ev.avatar;
       document.getElementById('detail-title').textContent = ev.title;
       document.getElementById('detail-host-name').textContent = ev.host;
       document.getElementById('detail-date').textContent = ev.date;
@@ -1717,18 +2396,52 @@
       document.getElementById('detail-desc').textContent = ev.desc;
       document.getElementById('detail-tags').innerHTML = ev.tags;
 
-      // Style places in red if complet
-      const placesEl = document.getElementById('detail-places');
-      placesEl.style.color = ev.places === 'COMPLET' ? 'var(--gray)' : 'var(--pink)';
+      // Photos gallery
+      const photosEl = document.getElementById('detail-photos');
+      if (ev.photos && ev.photos.length) {
+        photosEl.style.display = 'block';
+        photosEl.innerHTML = `
+          <div style="font-size:12px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Photos (${ev.photos.length})</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            ${ev.photos.map((p, i) => `
+              <div style="height:${i===0?'160px':'100px'};border-radius:12px;overflow:hidden;${i===0?'grid-column:1/-1':''}">
+                <img src="${p}" style="width:100%;height:100%;object-fit:cover;object-position:center ${i===1?'55%':'center'}">
+              </div>`).join('')}
+          </div>`;
+      } else {
+        photosEl.style.display = 'none';
+        photosEl.innerHTML = '';
+      }
 
-      // Update CTA
+      const placesEl = document.getElementById('detail-places');
+      placesEl.style.color = ev.places === 'COMPLET' ? 'var(--gray)' : 'var(--orange)';
+
       const cta = document.querySelector('.join-btn-lg');
-      if (ev.places === 'COMPLET') {
+      cta.style.cursor = 'default';
+      cta.onclick = null;
+
+      if (state === 'confirmed') {
+        cta.textContent = '✓ Participation validée';
+        cta.style.background = 'var(--lime)';
+        cta.style.color = '#fff';
+      } else if (state === 'pending') {
+        cta.textContent = '⏳ En cours de validation';
+        cta.style.background = 'var(--gray-light)';
+        cta.style.color = 'var(--gray)';
+      } else if (state === 'past') {
+        cta.textContent = 'Cet événement n\'est plus disponible';
+        cta.style.background = 'var(--gray-light)';
+        cta.style.color = 'var(--gray)';
+      } else if (ev.places === 'COMPLET') {
         cta.textContent = 'Rejoindre la liste d\'attente';
         cta.style.background = 'var(--gray-light)';
+        cta.style.color = 'var(--gray)';
       } else {
         cta.textContent = 'Rejoindre la sortie ✨';
-        cta.style.background = 'linear-gradient(135deg, var(--pink), var(--violet))';
+        cta.style.background = '#FF5F40';
+        cta.style.color = '#fff';
+        cta.style.cursor = 'pointer';
+        cta.onclick = handleJoin;
       }
 
       document.getElementById('screen-detail').classList.add('open');
@@ -1738,16 +2451,35 @@
       document.getElementById('screen-detail').classList.remove('open');
     }
 
+    function filterEvents(chip, category) {
+      document.querySelectorAll('#screen-meet .chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      document.querySelectorAll('#screen-meet .event-card').forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
     function handleJoin() {
-      const btn = document.querySelector('.join-btn-lg');
-      const original = btn.textContent;
-      btn.textContent = '✓ Inscription confirmée !';
-      btn.style.background = 'var(--green)';
-      setTimeout(() => {
-        btn.textContent = original;
-        btn.style.background = 'linear-gradient(135deg, var(--pink), var(--violet))';
-        closeDetail();
-      }, 1600);
+      if (!currentEvent) return;
+      document.getElementById('sheet-avatar').src = currentEvent.avatar;
+      document.getElementById('sheet-host-name').textContent = currentEvent.host;
+      document.getElementById('join-overlay').classList.add('open');
+      document.getElementById('join-sheet').classList.add('open');
+    }
+
+    function closeJoinSheet() {
+      document.getElementById('join-overlay').classList.remove('open');
+      document.getElementById('join-sheet').classList.remove('open');
+      const cta = document.querySelector('.join-btn-lg');
+      cta.textContent = '⏳ En cours de validation';
+      cta.style.background = 'var(--gray-light)';
+      cta.style.color = 'var(--gray)';
+      cta.style.cursor = 'default';
+      cta.onclick = null;
     }
 
     function switchTab(btn, tabName) {
@@ -1770,6 +2502,458 @@
         const el = document.getElementById('ptab-' + t);
         if (el) el.style.display = t === tabName ? 'block' : 'none';
       });
+    }
+
+    const communities = {
+      running:  { name:'Running Club',       mascot:'mascotte-run',          members:142, joined:true,  badge:'Public',  desc:'On court ensemble le long de la Garonne. Tous niveaux, bonne humeur obligatoire.' },
+      drinks:   { name:'Drinks & Vibes',     mascot:'mascotte-cocktail',     members:89,  joined:true,  badge:'Public',  desc:'Pour ceux qui savent trouver les meilleures terrasses de Bordeaux.' },
+      theodora: { name:'Theodora Fan Club',  mascot:'mascotte-danse',        members:34,  joined:false, badge:'Privée',  desc:'La commu des fans de Theodora. Sorties, discussions, références.' },
+      cine:     { name:'Ciné Club',          mascot:'mascotte-impressionne', members:211, joined:false, badge:'Public',  desc:'Films, débats, sorties ciné. Du blockbuster à l\'art et essai.' },
+      yoga:     { name:'Yoga & Mindset',     mascot:'mascotte-yoga',         members:67,  joined:false, badge:'Public',  desc:'Sessions yoga en plein air et en salle. Corps et esprit.' },
+      gamers:   { name:'Gamers Bordeaux',    mascot:'mascotte-malicieux',    members:156, joined:false, badge:'Public',  desc:'Gaming en soirée, tournois, LAN parties à Bordeaux.' },
+      cuisine:  { name:'Cuisine du Monde',   mascot:'mascotte-pizza',        members:78,  joined:false, badge:'Public',  desc:'Repas partagés, recettes du monde entier, restos découverte.' },
+      creatifs: { name:'Créatifs BDX',       mascot:'mascotte-peinture',     members:43,  joined:false, badge:'Privée',  desc:'Artistes, designers, créatifs de tous horizons réunis à Bordeaux.' },
+    };
+
+    let currentCommuId = null;
+    let selectedMascot = 'mascotte-normal';
+    let isPublic = true;
+    let createStep = 1;
+    let currentChatId = null;
+
+    // ===== CHAT DATA =====
+    const chatConversations = {
+      'running-club': {
+        name: 'Running Club', isCommu: true,
+        avatar: 'brand/graphisme/mascottes/mascotte-run.svg',
+        avatarRound: false, avatarBg: 'rgba(170,197,56,0.15)',
+        messages: [
+          { from: 'Eva', avatar: 'media/meet/pub2-running/avatar.jpg', text: 'RDV demain 6h25 quai des Chartrons, côté fleuve 🏃', time: '08:12', mine: false },
+          { from: 'Cloane', avatar: 'media/meet/pub1-rockwood/avatar.jpg', text: 'Présente !!', time: '08:14', mine: false },
+          { from: 'moi', text: '👟 Je suis là', time: '08:15', mine: true },
+          { from: 'Eva', avatar: 'media/meet/pub2-running/avatar.jpg', text: 'Top ! On sera 5. Allure tranquille, débutants bienvenus', time: '08:16', mine: false },
+          { from: 'Hugo', avatar: 'media/meet/pub4-afterwork/avatar.jpg', text: 'Je peux arriver à 6h30 c\'est bon ?', time: '08:20', mine: false },
+          { from: 'Eva', avatar: 'media/meet/pub2-running/avatar.jpg', text: 'Oui pas de souci, on t\'attendra pas longtemps haha', time: '08:21', mine: false },
+        ]
+      },
+      'drinks-vibes': {
+        name: 'Drinks & Vibes', isCommu: true,
+        avatar: 'brand/graphisme/mascottes/mascotte-cocktail.svg',
+        avatarRound: false, avatarBg: 'rgba(253,158,188,0.18)',
+        messages: [
+          { from: 'Hugo', avatar: 'media/meet/pub4-afterwork/avatar.jpg', text: 'Qui vient ce soir au RockWood ??', time: '18:30', mine: false },
+          { from: 'Lou-Anne', avatar: 'media/meet/pub3-concert/avatar.jpg', text: 'Moi !! 🍹', time: '18:32', mine: false },
+          { from: 'moi', text: 'On sera combien au final ?', time: '18:35', mine: true },
+          { from: 'Cloane', avatar: 'media/meet/pub1-rockwood/avatar.jpg', text: '7 pour l\'instant, je pense qu\'on sera 10', time: '18:36', mine: false },
+          { from: 'moi', text: 'Parfait 🔥', time: '18:37', mine: true },
+        ]
+      },
+      'theodora-fan': {
+        name: 'Theodora Fan Club', isCommu: true,
+        avatar: 'brand/graphisme/mascottes/mascotte-danse.svg',
+        avatarRound: false, avatarBg: 'rgba(171,212,253,0.2)',
+        messages: [
+          { from: 'Lou-Anne', avatar: 'media/meet/pub3-concert/avatar.jpg', text: 'Nouvel épisode dispo !! 🔥🔥🔥', time: '14:00', mine: false },
+          { from: 'Hugo', avatar: 'media/meet/pub4-afterwork/avatar.jpg', text: 'Déjà vu deux fois 😅', time: '14:05', mine: false },
+          { from: 'moi', text: 'QUOI pas encore eu le temps 😭', time: '14:10', mine: true },
+          { from: 'Lou-Anne', avatar: 'media/meet/pub3-concert/avatar.jpg', text: 'Spoil interdit ici haha', time: '14:11', mine: false },
+        ]
+      },
+      'cloane': {
+        name: 'Cloane', isCommu: false,
+        avatar: 'media/meet/pub1-rockwood/avatar.jpg',
+        avatarRound: true, avatarBg: '',
+        messages: [
+          { from: 'Cloane', text: 'T\'es dispo ce soir pour le RockWood ?', time: '17:42', mine: false },
+          { from: 'moi', text: 'Oui ! J\'arrive vers 23h', time: '17:44', mine: true },
+          { from: 'Cloane', text: 'Top 🍹 j\'ai sponsorisé la sortie pour qu\'on soit bien', time: '17:45', mine: false },
+          { from: 'moi', text: 'Trop bien haha t\'es la meilleure', time: '17:46', mine: true },
+          { from: 'Cloane', text: '😄', time: '17:46', mine: false },
+        ]
+      },
+      'eva': {
+        name: 'Eva', isCommu: false,
+        avatar: 'media/meet/pub2-running/avatar.jpg',
+        avatarRound: true, avatarBg: '',
+        messages: [
+          { from: 'Eva', text: 'T\'es à l\'aise sur les 8km ?', time: '20:15', mine: false },
+          { from: 'moi', text: 'Oui, allure tranquille ça va !', time: '20:17', mine: true },
+          { from: 'Eva', text: 'Parfait. Demain 6h25, quai des Chartrons 💪', time: '20:18', mine: false },
+          { from: 'moi', text: 'Je serai là 🏃', time: '20:19', mine: true },
+        ]
+      },
+      'hugo': {
+        name: 'Hugo', isCommu: false,
+        avatar: 'media/meet/pub4-afterwork/avatar.jpg',
+        avatarRound: true, avatarBg: '',
+        messages: [
+          { from: 'Hugo', text: 'T\'as vu le show drag ce vendredi ?', time: '11:30', mine: false },
+          { from: 'moi', text: 'Ouiiiii ça va slayyy 🎭', time: '11:32', mine: true },
+          { from: 'Hugo', text: 'Exactement !! J\'ai posté sur Buddy', time: '11:33', mine: false },
+          { from: 'moi', text: 'J\'ai demandé à rejoindre 👀', time: '11:34', mine: true },
+          { from: 'Hugo', text: '⏳ En cours de validation haha', time: '11:35', mine: false },
+        ]
+      },
+      'lou-anne': {
+        name: 'Lou-Anne', isCommu: false,
+        avatar: 'media/meet/pub3-concert/avatar.jpg',
+        avatarRound: true, avatarBg: '',
+        messages: [
+          { from: 'Lou-Anne', text: 'Vald ce samedi, il reste 2 places !!', time: '09:00', mine: false },
+          { from: 'moi', text: 'J\'ai vu ! J\'ai demandé à rejoindre 🎤', time: '09:05', mine: true },
+          { from: 'Lou-Anne', text: 'Cool, je valide dès que je vois ta demande', time: '09:06', mine: false },
+          { from: 'moi', text: '🙏 Merci Lou-Anne', time: '09:07', mine: true },
+        ]
+      },
+    };
+
+    // ===== PROFILES DATA =====
+    const profiles = {
+      'cloane': {
+        photo: 'media/meet/pub1-rockwood/avatar.jpg',
+        name: 'Cloane', meta: '22 ans · Bordeaux',
+        bio: 'Amatrice de soirées bien senties et de bons cocktails. J\'organise des sorties sur Buddy pour que les gens se rencontrent vraiment.',
+        tags: ['Bar', 'Soirée', 'Cocktails', 'Musique live', 'Photographie'],
+        commus: [
+          { id: 'drinks', name: 'Drinks & Vibes', mascot: 'mascotte-cocktail' },
+          { id: 'theodora', name: 'Theodora Fan Club', mascot: 'mascotte-danse' },
+        ]
+      },
+      'eva': {
+        photo: 'media/meet/pub2-running/avatar.jpg',
+        name: 'Eva', meta: '24 ans · Bordeaux',
+        bio: 'Running addict, yoga le dimanche, brunch le reste du temps. Je crois que le sport c\'est mieux à plusieurs.',
+        tags: ['Running', 'Yoga', 'Plein air', 'Bien-être', 'Nutrition'],
+        commus: [
+          { id: 'running', name: 'Running Club', mascot: 'mascotte-run' },
+          { id: 'yoga', name: 'Yoga & Mindset', mascot: 'mascotte-yoga' },
+        ]
+      },
+      'hugo': {
+        photo: 'media/meet/pub4-afterwork/avatar.jpg',
+        name: 'Hugo', meta: '23 ans · Bordeaux',
+        bio: 'Fan de culture drag, de performances et d\'ambiances électriques. J\'organise les sorties qui vont slayyy.',
+        tags: ['Show', 'LGBTQ+', 'Culture', 'Soirée', 'Théâtre'],
+        commus: [
+          { id: 'drinks', name: 'Drinks & Vibes', mascot: 'mascotte-cocktail' },
+          { id: 'theodora', name: 'Theodora Fan Club', mascot: 'mascotte-danse' },
+        ]
+      },
+      'lou-anne': {
+        photo: 'media/meet/pub3-concert/avatar.jpg',
+        name: 'Lou-Anne', meta: '21 ans · Bordeaux',
+        bio: 'Musique avant tout. Concerts, festivals, playlists à 3h du mat. Je vis pour les lives.',
+        tags: ['Concert', 'Rap', 'Musique', 'Festivals', 'Vinyles'],
+        commus: [
+          { id: 'cine', name: 'Ciné Club', mascot: 'mascotte-impressionne' },
+          { id: 'theodora', name: 'Theodora Fan Club', mascot: 'mascotte-danse' },
+        ]
+      },
+    };
+
+    // Mapping chat id → commu id (pour les conversations de commu)
+    const chatCommuMap = {
+      'running-club': 'running',
+      'drinks-vibes': 'drinks',
+      'theodora-fan': 'theodora',
+    };
+
+    function openConvProfile() {
+      if (!currentChatId) return;
+      const commuId = chatCommuMap[currentChatId];
+      if (commuId) {
+        // C'est une commu → ouvre la fiche commu
+        openCommu(commuId);
+        return;
+      }
+      // C'est un DM → ouvre la fiche profil
+      const p = profiles[currentChatId];
+      if (!p) return;
+      document.getElementById('profile-photo').src = p.photo;
+      document.getElementById('profile-name').textContent = p.name;
+      document.getElementById('profile-meta').textContent = p.meta;
+      document.getElementById('profile-bio').textContent = p.bio;
+      // Tags
+      const tagsEl = document.getElementById('profile-tags');
+      tagsEl.innerHTML = p.tags.map(t =>
+        `<span class="tag" style="background:rgba(77,51,38,0.08);color:var(--texte)">${t}</span>`
+      ).join('');
+      // Commus
+      const commusEl = document.getElementById('profile-commus');
+      commusEl.innerHTML = p.commus.map(c =>
+        `<div class="profile-commu-chip" onclick="closeProfile();openCommu('${c.id}')">
+          <img src="brand/graphisme/mascottes/${c.mascot}.svg" alt="">
+          ${c.name}
+        </div>`
+      ).join('');
+      document.getElementById('profile-overlay').classList.add('open');
+      document.getElementById('profile-sheet').classList.add('open');
+    }
+
+    function closeProfile() {
+      document.getElementById('profile-overlay').classList.remove('open');
+      document.getElementById('profile-sheet').classList.remove('open');
+    }
+
+    function openChat(id) {
+      const c = chatConversations[id];
+      if (!c) return;
+      currentChatId = id;
+      // Header
+      const avatarWrap = document.getElementById('conv-avatar-wrap');
+      const avatarImg = document.getElementById('conv-header-avatar');
+      avatarImg.src = c.avatar;
+      avatarWrap.className = 'conv-avatar' + (c.avatarRound ? ' circle' : '');
+      if (c.avatarBg) avatarWrap.style.background = c.avatarBg;
+      document.getElementById('conv-header-name').textContent = c.name;
+      // Render messages
+      const container = document.getElementById('conv-messages');
+      container.innerHTML = '<div class="conv-day-label">Aujourd\'hui</div>';
+      c.messages.forEach(msg => {
+        const row = document.createElement('div');
+        row.className = 'msg-row' + (msg.mine ? ' mine' : '');
+        if (!msg.mine && c.isCommu) {
+          row.innerHTML = `
+            <div class="msg-sender-avatar"><img src="${msg.avatar||c.avatar}" alt="${msg.from}"></div>
+            <div>
+              <div class="msg-sender-name">${msg.from}</div>
+              <div style="display:flex;align-items:flex-end;gap:4px">
+                <div class="msg-bubble theirs">${msg.text}</div>
+                <span class="msg-time">${msg.time}</span>
+              </div>
+            </div>`;
+        } else if (!msg.mine) {
+          row.innerHTML = `
+            <div class="msg-sender-avatar"><img src="${c.avatar}" alt="${c.name}"></div>
+            <div style="display:flex;align-items:flex-end;gap:4px">
+              <div class="msg-bubble theirs">${msg.text}</div>
+              <span class="msg-time">${msg.time}</span>
+            </div>`;
+        } else {
+          row.innerHTML = `
+            <span class="msg-time">${msg.time}</span>
+            <div class="msg-bubble mine">${msg.text}</div>`;
+        }
+        container.appendChild(row);
+      });
+      container.scrollTop = container.scrollHeight;
+      document.getElementById('sticker-picker').classList.remove('open');
+      document.getElementById('conv-input').value = '';
+      document.getElementById('screen-conversation').classList.add('open');
+    }
+
+    function closeChat() {
+      document.getElementById('screen-conversation').classList.remove('open');
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('conv-input');
+      const text = input.value.trim();
+      if (!text) return;
+      appendMyMessage(text, null);
+      input.value = '';
+      input.focus();
+    }
+
+    function sendSticker(mascotteName) {
+      appendMyMessage(null, mascotteName);
+      document.getElementById('sticker-picker').classList.remove('open');
+    }
+
+    function appendMyMessage(text, mascotte) {
+      const container = document.getElementById('conv-messages');
+      const now = new Date();
+      const time = now.getHours() + ':' + String(now.getMinutes()).padStart(2,'0');
+      const row = document.createElement('div');
+      row.className = 'msg-row mine';
+      if (mascotte) {
+        row.innerHTML = `
+          <span class="msg-time">${time}</span>
+          <div class="msg-bubble mine sticker"><img src="brand/graphisme/mascottes/${mascotte}.svg" alt=""></div>`;
+      } else {
+        row.innerHTML = `
+          <span class="msg-time">${time}</span>
+          <div class="msg-bubble mine">${text}</div>`;
+      }
+      container.appendChild(row);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function toggleStickerPicker() {
+      document.getElementById('sticker-picker').classList.toggle('open');
+    }
+
+    // ===== BUDDYCOUNT =====
+    let bcCurrentSlide = 0;
+    const bcSlides = [
+      { id: 'bc-slide-1', numId: 'bc-num-1', target: 23, duration: 1400 },
+      { id: 'bc-slide-2', numId: 'bc-num-2', target: 18, duration: 900 },
+      { id: 'bc-slide-3', numId: 'bc-num-3', target: 3,  duration: 600 },
+      { id: 'bc-slide-4', numId: 'bc-num-4', target: 3,  duration: 600 },
+    ];
+
+    function openBuddyCount() {
+      bcCurrentSlide = 0;
+      // Reset all slides
+      bcSlides.forEach((s, i) => {
+        document.getElementById(s.id).style.display = i === 0 ? 'flex' : 'none';
+        document.getElementById(s.numId).textContent = '0';
+      });
+      document.getElementById('buddycount-screen').style.transform = 'translateY(0)';
+      bcAnimateNumber(0);
+    }
+
+    function bcAnimateNumber(idx) {
+      const s = bcSlides[idx];
+      if (!s) return;
+      const el = document.getElementById(s.numId);
+      el.textContent = '0';
+      let count = 0;
+      const steps = s.target;
+      const interval = s.duration / steps;
+      const timer = setInterval(() => {
+        count++;
+        el.textContent = count;
+        if (count >= steps) clearInterval(timer);
+      }, interval);
+    }
+
+    function bcNextSlide() {
+      if (bcCurrentSlide >= bcSlides.length - 1) {
+        closeBuddyCount();
+        return;
+      }
+      // Hide current
+      document.getElementById(bcSlides[bcCurrentSlide].id).style.display = 'none';
+      bcCurrentSlide++;
+      // Show next with animation
+      const nextSlide = document.getElementById(bcSlides[bcCurrentSlide].id);
+      nextSlide.style.display = 'flex';
+      nextSlide.style.opacity = '0';
+      nextSlide.style.transition = 'opacity 0.35s ease';
+      setTimeout(() => { nextSlide.style.opacity = '1'; }, 20);
+      bcAnimateNumber(bcCurrentSlide);
+    }
+
+    function closeBuddyCount() {
+      document.getElementById('buddycount-screen').style.transform = 'translateY(100%)';
+    }
+
+    function searchCommu(val) {
+      const q = val.toLowerCase().trim();
+      document.querySelectorAll('.commu-card').forEach(card => {
+        const name = card.querySelector('.commu-name').textContent.toLowerCase();
+        card.style.display = (!q || name.includes(q)) ? '' : 'none';
+      });
+    }
+
+    function openCommu(id) {
+      const c = communities[id];
+      if (!c) return;
+      currentCommuId = id;
+      document.getElementById('commu-detail-mascot').src = `brand/graphisme/mascottes/${c.mascot}.svg`;
+      document.getElementById('commu-detail-name').textContent = c.name;
+      document.getElementById('commu-detail-members').textContent = `${c.members} membres`;
+      document.getElementById('commu-detail-desc').textContent = c.desc;
+      document.getElementById('commu-detail-badge').textContent = c.badge;
+      const btn = document.getElementById('commu-detail-btn');
+      if (c.joined) {
+        btn.textContent = '✓ Membre';
+        btn.style.background = 'var(--lime)';
+      } else {
+        btn.textContent = 'Rejoindre';
+        btn.style.background = '#FF5F40';
+      }
+      document.getElementById('commu-detail-overlay').classList.add('open');
+      document.getElementById('commu-detail-sheet').classList.add('open');
+    }
+
+    function closeCommuDetail() {
+      document.getElementById('commu-detail-overlay').classList.remove('open');
+      document.getElementById('commu-detail-sheet').classList.remove('open');
+    }
+
+    function toggleJoinCommu() {
+      if (!currentCommuId) return;
+      const c = communities[currentCommuId];
+      c.joined = !c.joined;
+      if (c.joined) c.members++;
+      else c.members--;
+      openCommu(currentCommuId);
+    }
+
+    function openCreateCommu() {
+      createStep = 1;
+      document.querySelectorAll('.create-step').forEach(s => s.classList.remove('active'));
+      document.getElementById('create-step-1').classList.add('active');
+      document.querySelectorAll('.create-step-dot').forEach((d,i) => {
+        d.classList.toggle('active', i === 0);
+      });
+      document.getElementById('create-commu-overlay').classList.add('open');
+      document.getElementById('create-commu-sheet').classList.add('open');
+    }
+
+    function closeCreateCommu() {
+      document.getElementById('create-commu-overlay').classList.remove('open');
+      document.getElementById('create-commu-sheet').classList.remove('open');
+    }
+
+    function nextCreateStep(current) {
+      const next = current === 0 ? createStep - 1 : current + 1;
+      if (next < 1 || next > 3) return;
+      document.querySelectorAll('.create-step').forEach(s => s.classList.remove('active'));
+      document.getElementById(`create-step-${next}`).classList.add('active');
+      document.querySelectorAll('.create-step-dot').forEach((d,i) => {
+        d.classList.toggle('active', i === next - 1);
+      });
+      createStep = next;
+    }
+
+    function selectMascot(el, name) {
+      document.querySelectorAll('.mascot-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedMascot = name;
+    }
+
+    function togglePrivacy() {
+      isPublic = !isPublic;
+      const toggle = document.getElementById('privacy-toggle');
+      toggle.style.background = isPublic ? '#FF5F40' : 'rgba(77,51,38,0.2)';
+      toggle.querySelector('div').style.transform = isPublic ? 'translateX(0)' : 'translateX(-18px)';
+    }
+
+    function toggleInvite(el) {
+      el.classList.toggle('checked');
+    }
+
+    function filterInvite(val) {
+      const q = val.toLowerCase();
+      document.querySelectorAll('.invite-row').forEach(row => {
+        row.style.display = row.dataset.name.toLowerCase().includes(q) ? '' : 'none';
+      });
+    }
+
+    function createCommu() {
+      const name = document.getElementById('commu-input-name').value.trim() || 'Ma Commu';
+      const id = 'custom_' + Date.now();
+      communities[id] = {
+        name, mascot: selectedMascot, members: 1, joined: true,
+        badge: isPublic ? 'Public' : 'Privée',
+        desc: document.getElementById('commu-input-desc').value.trim() || 'Ma nouvelle communauté.'
+      };
+      // Ajouter la card dans la grille
+      const grid = document.querySelector('#screen-join .commu-grid');
+      const card = document.createElement('div');
+      card.className = 'commu-card';
+      card.setAttribute('onclick', `openCommu('${id}')`);
+      card.innerHTML = `
+        <div class="commu-joined">✓</div>
+        <img class="commu-mascotte" src="brand/graphisme/mascottes/${selectedMascot}.svg" alt="${name}">
+        <div class="commu-name">${name}</div>
+        <div class="commu-members">1 membre</div>
+      `;
+      grid.appendChild(card);
+      closeCreateCommu();
     }
   </script>
 
